@@ -1717,8 +1717,7 @@ function jtCallback(){
 
 }
 /*]]>*/</script>
-<!-- Replace YOUR_GITHUB_USERNAME with your GitHub username after uploading technote-main.js -->
-<script src='https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USERNAME/blogger-assets@v1.0/technote-main.js'/>
+<script src='https://cdn.jsdelivr.net/gh/aleck31/blogger-template@v1.0/technote-main.js'/>
 
 <!-- Your Style and Script before </body> is here -->
 
