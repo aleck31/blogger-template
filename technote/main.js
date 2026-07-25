@@ -34,8 +34,8 @@ const jo = {};
   function $qa(sel, ctx) { return (ctx || document).querySelectorAll(sel); }
 
   function hasClass(el, cls) { return el.classList.contains(cls); }
-  function addClass(el, cls) { el.classList.add(cls); }
-  function removeClass(el, cls) { el.classList.remove(cls); }
+  function addClass(el, cls) { el.classList.add(...cls.split(/\s+/)); }
+  function removeClass(el, cls) { el.classList.remove(...cls.split(/\s+/)); }
   function toggleClass(el, cls) { el.classList.toggle(cls); }
 
   function getParam(name, url) {
