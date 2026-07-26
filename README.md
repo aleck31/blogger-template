@@ -5,6 +5,7 @@
 | 模板 | 说明 |
 |------|------|
 | [technote](technote/) | 开发者笔记风格,双栏布局,深色模式,Prism 代码高亮,Mermaid 图表 |
+| [simpledays](simpledays/) | 经典 Picture Window 重构版:保留日期分组、暖米色调与原 widget 结构,Layout v3 + Bootstrap 5 响应式,深色模式 |
 
 ## 如何应用到 Blogger
 
