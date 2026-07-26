@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:render='true' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='2.1.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
+<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:render='true' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='2.1.1' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
 <b:include data='blog' name='JetAll-head-content'/>
 <b:if cond='!data:view.isLayoutMode'>
 <b:skin><![CDATA[/*
@@ -183,6 +183,10 @@ a{color:var(--jt-link-color)}a:hover{color:var(--jt-link-hover)}
 /* Meta rows: quiet text, dates are self-explanatory without clock icons */
 .item-meta{font-size:13px}
 .item-meta .jt-icon{display:none}
+/* Mermaid diagrams: plain centered figure, not a code box (pre.mermaid must not look like pre) */
+.mermaid{background:transparent!important;border:0;padding:1rem 0;margin:1.5rem 0;text-align:center;color:transparent}
+.mermaid[data-processed]{color:inherit}
+.mermaid svg{max-width:100%;height:auto}
 /* Sidebar categories: mono names, quiet counts */
 .categories .list a{font-family:'JetBrains Mono',SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;font-weight:500!important}
 .categories .list .fs-9{color:var(--jt-nav-color)}
@@ -216,7 +220,7 @@ body#layout:before {
 background-color: #2c3e50;
 border-radius: 30px;
 color: #fff;
-content: "TechNote v2.1.0";
+content: "TechNote v2.1.1";
 display: block;
 font-family: Roboto,sans-serif;
 padding: 10px 20px;
@@ -1754,8 +1758,15 @@ function jtCallback(){
 var isDark=document.documentElement.classList.contains('dark-mode');
 // Mermaid diagrams: code blocks starting with a diagram keyword (or language-mermaid) become <div class=mermaid>
 var MM_RE=/^(graph|flowchart|sequenceDiagram|classDiagram|stateDiagram|erDiagram|journey|gantt|pie|mindmap|timeline|gitGraph|quadrantChart)\b/;
-var mmBlocks=[];
+// hand-written .mermaid containers: <pre class=mermaid> is the official form (mermaid docs since v10),
+// <div class=mermaid> is legacy but still valid at runtime; Blogger may store newlines as <br>
+var mmBlocks=[].slice.call(document.querySelectorAll('.mermaid'));
+mmBlocks.forEach(function(d){
+  d.querySelectorAll('br').forEach(function(br){br.replaceWith('\n');});
+  d.setAttribute('data-mm-src',d.textContent.trim());
+});
 document.querySelectorAll('pre').forEach(function(el){
+  if(el.classList.contains('mermaid'))return; // already collected above
   var code=el.querySelector('code')||el;
   var t=code.textContent.trim();
   if(/language-mermaid/.test(code.className+el.className)||MM_RE.test(t)){
@@ -1769,7 +1780,27 @@ document.querySelectorAll('pre').forEach(function(el){
 });
 function mmRender(){
   var dark=document.documentElement.classList.contains('dark-mode');
-  mermaid.initialize({startOnLoad:false,securityLevel:'loose',theme:dark?'dark':'neutral',themeVariables:{fontFamily:'JetBrains Mono,Menlo,monospace'}});
+  // brand-tokened theme: white/dark card nodes, accent borders, mono font — matches template palette
+  var tv=dark?{
+    fontFamily:'JetBrains Mono,Menlo,monospace',fontSize:'14px',
+    primaryColor:'#22272d',primaryTextColor:'#d3dae1',primaryBorderColor:'#4ab896',
+    secondaryColor:'#262c33',tertiaryColor:'#22272d',
+    lineColor:'#4ab896',textColor:'#b9c2cb',
+    nodeBorder:'#4ab896',clusterBkg:'#262c33',clusterBorder:'#2c333b',
+    edgeLabelBackground:'#1d2126',
+    actorBkg:'#22272d',actorBorder:'#4ab896',actorTextColor:'#d3dae1',
+    noteBkgColor:'#262c33',noteTextColor:'#b9c2cb',noteBorderColor:'#2c333b'
+  }:{
+    fontFamily:'JetBrains Mono,Menlo,monospace',fontSize:'14px',
+    primaryColor:'#ffffff',primaryTextColor:'#2b3440',primaryBorderColor:'#0b8168',
+    secondaryColor:'#f3f7f5',tertiaryColor:'#ffffff',
+    lineColor:'#0b8168',textColor:'#3a4450',
+    nodeBorder:'#0b8168',clusterBkg:'#f3f7f5',clusterBorder:'#e8eae6',
+    edgeLabelBackground:'#fbfbf9',
+    actorBkg:'#ffffff',actorBorder:'#0b8168',actorTextColor:'#2b3440',
+    noteBkgColor:'#f3f7f5',noteTextColor:'#3a4450',noteBorderColor:'#e8eae6'
+  };
+  mermaid.initialize({startOnLoad:false,securityLevel:'loose',theme:'base',themeVariables:tv,flowchart:{htmlLabels:true,curve:'basis'}});
   mmBlocks.forEach(function(d){d.removeAttribute('data-processed');d.textContent=d.getAttribute('data-mm-src');});
   mermaid.run({nodes:mmBlocks});
 }
@@ -1816,7 +1847,7 @@ Defer.js('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js','prism-js',1
 });
 }
 /*]]>*/</script>
-<script src='https://cdn.jsdelivr.net/gh/aleck31/blogger-template@v2.1.0/technote/main.js'/>
+<script src='https://cdn.jsdelivr.net/gh/aleck31/blogger-template@v2.1.1/technote/main.js'/>
 
 <!-- Your Style and Script before </body> is here -->
 

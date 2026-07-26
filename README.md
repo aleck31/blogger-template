@@ -42,7 +42,7 @@ XML 和 JS 是配套发布的:**用哪个 tag 的 XML,里面就已经指向同�
 
 - [ ] 首页:Featured Post、Latest Posts、侧栏渲染正常
 - [ ] 文章页:标题、日期、分类 chip 与标签、目录(TOC)、代码高亮
-- [ ] Mermaid 图表:代码块以 `flowchart`/`graph`/`sequenceDiagram` 等关键字开头即渲染为图
+- [ ] Mermaid 图表:三种写法均可——普通代码块内容以 `flowchart`/`graph` 等关键字开头;或 HTML 视图写 `<pre class="mermaid">`(官方推荐)/ `<div class="mermaid">`(兼容)
 - [ ] 深色模式切换(导航栏月亮/太阳图标)
 - [ ] 搜索、分页按钮(依赖 JS,若样式异常先查 JS 引用的 tag)
 - [ ] 移动端:汉堡菜单、布局自适应
