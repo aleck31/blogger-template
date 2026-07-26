@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='1.0.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
+<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='1.1.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
 <script>/*<![CDATA[*/function rmurl(e,t){var r=new RegExp(/\?m=0|&m=0|\?m=1|&m=1/g);return r.test(e)&&(e=e.replace(r,""),t&&window.history.replaceState({},document.title,e)),e}const currentUrl=rmurl(location.toString(),!0);null!==localStorage&&"dark"==localStorage.getItem("theme")&&(document.querySelector("html").className="dark-mode");/*]]>*/</script>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
 <meta content='width=device-width, initial-scale=1' name='viewport'/>
-<!-- Bootstrap first so the theme skin below wins the cascade -->
+<!-- Bootstrap first so the theme skin below wins the cascade; excluded from the layout editor where it fights the editor chrome -->
+<b:if cond='!data:view.isLayoutMode'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet'/>
+</b:if>
 
+<b:if cond='!data:view.isLayoutMode'>
 <b:skin><![CDATA[/*
 
 -----------------------------------------------
@@ -64,13 +67,13 @@ Replaces: fauxcolumn/table layout, fixed 1100px width, designer gradients
 <Variable name="body.hover.color" description="Link Hover" type="color" default="#b8813c" value="#b8813c"/>
 <Variable name="border.color" description="Border Color" type="color" default="#e3d9c9" value="#e3d9c9"/>
 <Variable name="date.header.color" description="Date Header Color" type="color" default="#8a7f6d" value="#8a7f6d"/>
-<Variable name="post.footer.color" description="Post Footer Color" type="color" default="#9c9284" value="#9c9284"/>
+<Variable name="post.meta.color" description="Post Meta Color" type="color" default="#9c9284" value="#9c9284"/>
 </Group>
 
 <Group description="_Typography">
-<Variable name="body.text" description="Body Font" type="font" default="normal normal 17px Noto Serif SC,Source Han Serif SC,Songti SC,Georgia,serif" value="normal normal 17px Noto Serif SC,Source Han Serif SC,Songti SC,Georgia,serif"/>
-<Variable name="posts.title" description="Heading Font" type="font" default="normal 600 26px Noto Serif SC,Source Han Serif SC,Songti SC,Georgia,serif" value="normal 600 26px Noto Serif SC,Source Han Serif SC,Songti SC,Georgia,serif"/>
-<Variable name="header.font" description="Blog Title Font" type="font" default="normal 600 40px Trebuchet MS,Noto Serif SC,Georgia,serif" value="normal 600 40px Trebuchet MS,Noto Serif SC,Georgia,serif"/>
+<Variable name="body.text" description="Body Font" type="font" default="normal normal 16px var(--sd-font-sans)" value="normal normal 16px var(--sd-font-sans)"/>
+<Variable name="posts.title" description="Heading Font" type="font" default="normal 700 26px var(--sd-font-sans)" value="normal 700 26px var(--sd-font-sans)"/>
+<Variable name="header.font" description="Blog Title Font" type="font" default="normal 700 38px var(--sd-font-sans)" value="normal 700 38px var(--sd-font-sans)"/>
 <Variable name="tabs.font" description="Menu Font" type="font" default="normal 500 15px var(--sd-font-ui)" value="normal 500 15px var(--sd-font-ui)"/>
 <Variable name="widget.title.font" description="Widget Title Font" type="font" default="normal 600 12px var(--sd-font-ui)" value="normal 600 12px var(--sd-font-ui)"/>
 </Group>
@@ -104,6 +107,14 @@ Replaces: fauxcolumn/table layout, fixed 1100px width, designer gradients
 --bs-body-bg:$(body.background);
 --bs-body-color:$(body.text.color);
 --sd-font-ui:Inter,-apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Segoe UI,Arial,sans-serif;
+--sd-font-sans:Inter,"Noto Sans SC",-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+--sd-font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+/* Primary-colour tints, weakest to strongest; dark mode overrides all three below */
+--sd-tint-1:rgba(143,95,47,.06);
+--sd-tint-2:rgba(143,95,47,.09);
+--sd-tint-3:rgba(143,95,47,.17);
+/* Card lift: hairline contact shadow + wide soft falloff, warm-toned to match the palette */
+--sd-shadow:0 1px 2px rgba(47,42,36,.04),0 8px 28px -12px rgba(47,42,36,.18);
 --sd-primary:$(keycolor);
 --sd-page-bg:$(page.background);
 --sd-content-bg:$(body.background);
@@ -112,7 +123,7 @@ Replaces: fauxcolumn/table layout, fixed 1100px width, designer gradients
 --sd-link-hover:$(body.hover.color);
 --sd-border:$(border.color);
 --sd-date:$(date.header.color);
---sd-footer-text:$(post.footer.color);
+--sd-meta-text:$(post.meta.color);
 --sd-widget-title:$(widget.title.color);
 --sd-nav:$(tabs.color);
 --sd-nav-hover:$(tabs.hover);
@@ -130,31 +141,33 @@ Replaces: fauxcolumn/table layout, fixed 1100px width, designer gradients
 --bs-body-bg:#262220;--bs-body-color:#c9c0b4;
 --sd-primary:#d6a962;--sd-page-bg:#1c1917;--sd-content-bg:#262220;
 --sd-heading:#ded6cb;--sd-link:#d6a962;--sd-link-hover:#e6bd7d;
---sd-border:#3a332c;--sd-date:#9d9284;--sd-footer-text:#8e8477;
+--sd-border:#3a332c;--sd-date:#9d9284;--sd-meta-text:#8e8477;
 --sd-widget-title:#9d9284;--sd-nav:#9d9284;--sd-nav-hover:#ded6cb;--sd-nav-selected:#d6a962;
---sd-tabs-bg:rgba(30,27,24,.82);--sd-header-text:#ded6cb;
---sd-foot-bg:#1c1917;--sd-foot-text:#9d9284;--sd-foot-link:#c9c0b4;--sd-foot-border:#332e28
+--sd-tabs-bg:rgba(26,23,20,.55);--sd-header-text:#ded6cb;
+--sd-foot-bg:#1c1917;--sd-foot-text:#9d9284;--sd-foot-link:#c9c0b4;--sd-foot-border:#332e28;
+--sd-tint-1:rgba(214,169,98,.08);--sd-tint-2:rgba(214,169,98,.12);--sd-tint-3:rgba(214,169,98,.22);
+--sd-shadow:0 1px 2px rgba(0,0,0,.25),0 8px 28px -12px rgba(0,0,0,.6)
 }
 
-body{margin:0;font:$(body.text);line-height:1.85;color:var(--bs-body-color);background-color:var(--sd-page-bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;font:$(body.text);line-height:1.8;color:var(--bs-body-color);background-color:var(--sd-page-bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img,iframe,svg,video{max-width:100%;height:auto}
 a,a:link,a:visited{color:var(--sd-link);text-decoration:none;transition:color .2s ease}
 a:hover,a:active{color:var(--sd-link-hover);text-decoration:underline}
 .post-body a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
-.blog-title a,.post-title a,.sd-nav a,.widget-title a,.post-footer a,.sd-side a,#footer-wrap a,.blog-pager a{text-decoration:none}
+.blog-title a,.post-title a,.sd-nav a,.widget-title a,.post-meta a,.sd-side a,#footer-wrap a,.blog-pager a{text-decoration:none}
 .sd-side a:hover,#footer-wrap a:hover{text-decoration:underline}
 /* Attribution row is chrome, not content: colour change only. Needs the #id to outrank the rule above */
 #footer-wrap .sd-attribution a,#footer-wrap .sd-attribution a:hover,#footer-wrap .sd-attribution a:active{text-decoration:none}
 h1,h2,h3,h4,h5,h6{font:$(posts.title);color:var(--sd-heading);line-height:1.45;margin:1.6em 0 .6em}
 p{margin:0 0 1.15em}
-blockquote{margin:1.5rem 0;padding:.85rem 1.15rem;border-left:3px solid var(--sd-primary);background-color:rgba(143,95,47,.05);border-radius:0 6px 6px 0}
+blockquote{margin:1.5rem 0;padding:.85rem 1.15rem;border-left:3px solid var(--sd-primary);background-color:var(--sd-tint-1);border-radius:0 6px 6px 0}
 blockquote p:last-child{margin-bottom:0}
-pre{background-color:rgba(143,95,47,.06);border:1px solid var(--sd-border);border-radius:6px;padding:.9rem 1rem;overflow-x:auto;font-size:.9rem;line-height:1.6}
+pre{background-color:var(--sd-tint-1);border:1px solid var(--sd-border);border-radius:6px;padding:.9rem 1rem;overflow-x:auto;font-size:.9rem;line-height:1.6}
 code{font-family:SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
 pre code{background:none;padding:0}
 table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.95rem}
 th,td{border:1px solid var(--sd-border);padding:.55rem .75rem;vertical-align:top}
-th{background-color:rgba(143,95,47,.06);font-weight:600}
+th{background-color:var(--sd-tint-1);font-weight:600}
 hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 
 /* Optional page background image; disabled on small screens for performance */
@@ -163,9 +176,8 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 
 /* Layout: Bootstrap grid replaces the fauxcolumn/table geometry */
 .sd-wrap{max-width:1260px}
-.sd-card{background-color:var(--sd-content-bg);border:1px solid var(--sd-border);border-radius:8px;padding:24px 28px}
-/* Reading measure applies to the whole main column, so no dead space inside the card */
-@media (min-width:1200px){.sd-main{max-width:760px}}
+.sd-card{background-color:var(--sd-content-bg);border:1px solid var(--sd-border);border-radius:8px;padding:24px 28px;box-shadow:var(--sd-shadow)}
+/* No max-width on the main column: it must fill the row so cards align with the nav bar */
 
 /* Blogger wraps every b:section/b:widget in .section/.widget with default margins */
 /* Scoped to the main column: this reset used to also zero the sidebar's widget spacing */
@@ -174,30 +186,48 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 
 /* Blog header: title over background, tagline rule (as in Picture Window) */
 #header-wrap{padding:32px 0 var(--sd-gap)}
-#header-wrap .blog-title{font:$(header.font);color:var(--sd-header-text);text-shadow:$(header.shadow);margin:0;line-height:1.2}
+#header-wrap .blog-title{font:$(header.font);color:var(--sd-header-text);text-shadow:$(header.shadow);margin:0;line-height:1.2;letter-spacing:-.02em}
 #header-wrap .blog-title a,#header-wrap .blog-title a:hover{color:inherit;text-decoration:none}
 .blog-description{margin:.35rem 0 0;font-family:var(--sd-font-ui);font-size:14px;color:var(--sd-header-text);text-shadow:$(header.shadow);opacity:.92}
 
 /* Tabs navigation, flattened from the folder-tab look */
 /* Frosted glass standalone bar: it spans the full row while cards below are narrower, so it cannot butt against them */
-#nav-wrap{background-color:var(--sd-tabs-bg);border:1px solid rgba(255,255,255,.4);border-radius:8px;margin-bottom:var(--sd-gap);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5)}
-.dark-mode #nav-wrap{border-color:rgba(255,255,255,.07);backdrop-filter:blur(16px) saturate(1.1) brightness(.75);-webkit-backdrop-filter:blur(16px) saturate(1.1) brightness(.75)}
+/* Glass = tint (tabs.bg) + vertical light wash + inset rim highlight + soft lift shadow over a blurred backdrop */
+#nav-wrap{background-color:var(--sd-tabs-bg);background-image:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.12));border:1px solid rgba(255,255,255,.55);border-radius:8px;margin-bottom:var(--sd-gap);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 8px 24px -12px rgba(47,42,36,.35);backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6)}
+/* Dark glass keeps a low-alpha tint so the blur stays visible; brightness dims the light backdrop image for text contrast */
+.dark-mode #nav-wrap{background-image:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0));border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 24px -12px rgba(0,0,0,.65);backdrop-filter:blur(18px) saturate(1.2) brightness(.65);-webkit-backdrop-filter:blur(18px) saturate(1.2) brightness(.65)}
+/* No backdrop-filter (old Firefox ESR, some webviews): fall back to a near-opaque bar */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+#nav-wrap{background-color:rgba(250,243,231,.94)}
+.dark-mode #nav-wrap{background-color:rgba(30,27,24,.96)}
+}
 /* The background image is light in both modes; dim it in dark mode so overlaid text stays readable */
 .dark-mode .page-bg{background-blend-mode:multiply;background-color:#4a423a}
 #nav-wrap .widget{margin:4px}
 .sd-nav{display:flex;flex-wrap:wrap;list-style:none;margin:0;padding:0 8px}
 .sd-nav li a{display:block;font:$(tabs.font);color:var(--sd-nav);padding:12px 16px;margin:3px 0;border-radius:6px;border-bottom:2px solid transparent}
-.sd-nav li a:hover{color:var(--sd-nav-hover);background-color:rgba(143,95,47,.05)}
-.dark-mode .sd-nav li a:hover{background-color:rgba(214,169,98,.08)}
-.sd-nav li.selected a{color:var(--sd-nav-selected);background-color:rgba(143,95,47,.08)}
-.dark-mode .sd-nav li.selected a{background-color:rgba(214,169,98,.12)}
+.sd-nav li a:hover{color:var(--sd-nav-hover);background-color:var(--sd-tint-1)}
+.sd-nav li.selected a{color:var(--sd-nav-selected);background-color:var(--sd-tint-2)}
 .sd-tools{display:flex;align-items:center;gap:2px;margin-left:auto;padding-right:8px}
 .sd-tools button{background:none;border:0;color:var(--sd-nav);cursor:pointer;padding:8px;line-height:1;border-radius:6px}
-.sd-tools button:hover{color:var(--sd-nav-hover);background-color:rgba(143,95,47,.08)}
+.sd-tools button:hover{color:var(--sd-nav-hover);background-color:var(--sd-tint-2)}
 .sd-icon{width:1.15em;height:1.15em;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-/* Date header: the spine of this theme, kept from the original */
-.date-header{font-family:var(--sd-font-ui);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sd-date);margin:1.6rem 0 .8rem;padding-bottom:.5rem;border-bottom:1px solid var(--sd-border)}
+/* List pages: one card per date-group instead of one big card - separation comes from card
+   boundaries and page background, not divider lines (the meta row already draws its own rule) */
+.list .sd-main .sd-card{background:none;border:0;padding:0;box-shadow:none}
+.list .sd-main .date-header{border-bottom:0;padding-bottom:0;margin:1.8rem 2px .6rem}
+.list .sd-main .date-header:first-of-type{margin-top:0}
+.list .date-posts{background-color:var(--sd-content-bg);border:1px solid var(--sd-border);border-radius:8px;padding:24px 28px;box-shadow:var(--sd-shadow);margin-bottom:var(--sd-gap)}
+.list .date-posts .post{margin-bottom:2.2rem}
+.list .date-posts .post:last-child{margin-bottom:0}
+.list .sd-main .blog-pager{background-color:var(--sd-content-bg);border:1px solid var(--sd-border);border-radius:8px;padding:14px 20px;box-shadow:var(--sd-shadow);margin-top:0}
+@media (max-width:991px){.list .date-posts{padding:22px 18px;border-radius:6px}}
+
+/* Date header: the spine of this theme, kept from the original; mono = annotation layer */
+.date-header{display:flex;align-items:center;gap:10px;font-family:var(--sd-font-mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sd-date);margin:1.6rem 0 .8rem;padding-bottom:.5rem;border-bottom:1px solid var(--sd-border)}
+/* Short rule before the date, like a journal entry marker */
+.date-header:before{content:"";flex:0 0 22px;height:1px;background-color:var(--sd-primary);opacity:.55}
 .date-header:first-child,.sd-card>.date-header:first-of-type{margin-top:0}
 .date-posts{margin-bottom:1.6rem}
 .date-posts:last-child{margin-bottom:0}
@@ -216,18 +246,28 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 .post-title a{color:var(--sd-heading)}
 .post-title a:hover{color:var(--sd-primary)}
 .post-body{overflow-wrap:break-word}
+/* Chinese-prose first-line indent on real paragraphs only: skip image/embed-only ones (:has needs Chrome105+/FF121+; they just stay unindented) */
+/* With indent marking paragraph starts, spacing drops from 1.15em - but 0.4em reads cramped at 1.8 line-height; 0.75em keeps a visible beat */
+.post-body p{text-indent:2em;margin-bottom:.75em}
+.post-body p:has(>img:first-child),.post-body p:has(>iframe:first-child),.post-body p:has(>a>img:first-child){text-indent:0}
+/* Quotes are already set off by their border/tint; no indent for p-wrapped or bare text alike */
+.post-body blockquote,.post-body blockquote p{text-indent:0}
+.post-summary p{text-indent:0}
 .post-body img{border-radius:6px}
 .jump-link{margin:.7rem 0 0}
 .jump-link a{font-family:var(--sd-font-ui);font-size:14px;font-weight:500}
 .jump-link a:after{content:" \2192"}
-.post-footer{font-family:var(--sd-font-ui);font-size:13px;color:var(--sd-footer-text);display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--sd-border)}
-.post-footer a{color:var(--sd-footer-text)}
-.post-footer a:hover{color:var(--sd-primary)}
+/* Byline under the title on all views; on item pages labels sit right and a rule closes the header block */
+.post-meta{font-family:var(--sd-font-ui);font-size:13px;color:var(--sd-meta-text);display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:.1rem 0 1.1rem}
+.single .post-meta{margin:.3rem 0 1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--sd-border)}
+.single .post-meta .post-labels{margin-left:auto}
+/* Timestamps read as data: mono with tabular figures */
+.post-timestamp,.post-timestamp a{font-family:var(--sd-font-mono);font-size:12px;font-variant-numeric:tabular-nums}
+.post-meta a{color:var(--sd-meta-text)}
+.post-meta a:hover{color:var(--sd-primary)}
 .post-labels{display:flex;flex-wrap:wrap;gap:6px}
-.post-labels a{font-size:12px;letter-spacing:.02em;color:var(--sd-primary);background-color:rgba(143,95,47,.09);border-radius:999px;padding:2px 10px}
-.post-labels a:hover{background-color:rgba(143,95,47,.17);color:var(--sd-primary)}
-.dark-mode .post-labels a{background-color:rgba(214,169,98,.12)}
-.dark-mode .post-labels a:hover{background-color:rgba(214,169,98,.22)}
+.post-labels a{font-size:12px;letter-spacing:.02em;color:var(--sd-primary);background-color:var(--sd-tint-2);border-radius:999px;padding:2px 10px}
+.post-labels a:hover{background-color:var(--sd-tint-3);color:var(--sd-primary)}
 
 /* List views show the lead image full width, then the post text cut off at snippetLength */
 .post-summary .summary-thumb{display:block;margin-bottom:1rem}
@@ -236,6 +276,16 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 
 /* Pager */
 .blog-pager{display:flex;justify-content:space-between;gap:12px;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--sd-border);font-family:var(--sd-font-ui);font-size:14px}
+/* Post pages: prev/next as tappable blocks; stacked full-width on phones (thumb-sized targets) */
+.single .blog-pager{gap:10px;margin-top:2rem}
+.single .blog-pager a{display:block;flex:0 1 auto;max-width:48%;padding:10px 16px;border:1px solid var(--sd-border);border-radius:8px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.single .blog-pager a:hover{border-color:var(--sd-primary);background-color:var(--sd-tint-1);text-decoration:none}
+.single .blog-pager .pager-newer{margin-left:auto;text-align:right}
+@media (max-width:575px){
+.single .blog-pager{flex-direction:column}
+.single .blog-pager a{max-width:none;text-align:center;padding:12px 16px}
+.single .blog-pager .pager-newer{margin-left:0}
+}
 .sd-card>*:last-child{margin-bottom:0}
 .date-posts:last-child{margin-bottom:0}
 .post:last-child{margin-bottom:0}
@@ -258,7 +308,7 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 .sd-side .widget{margin:0;padding-top:1.3rem;margin-top:1.3rem;border-top:1px solid var(--sd-border)}
 .sd-side .widget.BlogSearch{padding-top:0;margin-top:0;border-top:0}
 .sd-side .widget h2,.sd-side .widget h3,.sd-side .widget .title,.sd-side .widget .widget-title{margin:0 0 .7rem}
-.widget-title,.sd-side .widget h2,.sd-side .widget h3,.sd-side .widget .title,#footer-wrap .widget h2,#footer-wrap .widget h3,#footer-wrap .widget .title{font:$(widget.title.font);font-family:var(--sd-font-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--sd-widget-title);margin:0 0 .85rem;line-height:1.4}
+.widget-title,.sd-side .widget h2,.sd-side .widget h3,.sd-side .widget .title,#footer-wrap .widget h2,#footer-wrap .widget h3,#footer-wrap .widget .title{font:$(widget.title.font);font-family:var(--sd-font-mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sd-widget-title);margin:0 0 .85rem;line-height:1.4}
 .sd-side .widget-content{font-family:var(--sd-font-ui);font-size:14px}
 /* BlogList reuses .blog-title/.blog-icon class names; reset them inside the sidebar */
 .sd-side .blog-title,.sd-side .blog-title a{font:500 14px var(--sd-font-ui);color:var(--sd-link);text-shadow:none;margin:0;line-height:1.5}
@@ -274,6 +324,11 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 /* item-time is BlogList's "time since last update" (widget setting showTimePeriodSinceLastUpdate) */
 .sd-side .item-time{font-size:11.5px;color:var(--sd-widget-title);opacity:.85}
 .sd-side .item-time:before{content:"updated ";opacity:.8}
+.sd-feeds{list-style:none;margin:0;padding:0}
+.sd-feeds li{margin-bottom:.55rem;line-height:1.6}
+.sd-feeds li:last-child{margin-bottom:0}
+.sd-feeds a{display:inline-flex;align-items:center;gap:8px}
+.sd-feeds .sd-icon{width:1em;height:1em;flex:0 0 auto;color:var(--sd-primary)}
 .sd-side ul{list-style:none;margin:0;padding:0}
 .sd-side li{margin-bottom:.5rem;line-height:1.6}
 .sd-side select,.sd-side input[type=text]{width:100%;font-family:var(--sd-font-ui);font-size:14px;padding:7px 10px;color:var(--bs-body-color);background-color:var(--sd-content-bg);border:1px solid var(--sd-border);border-radius:6px}
@@ -281,18 +336,16 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 .sd-search{display:flex;gap:8px}
 .sd-search button{font-family:var(--sd-font-ui);font-size:14px;padding:7px 14px;color:var(--sd-primary);background:none;border:1px solid var(--sd-primary);border-radius:6px;cursor:pointer;white-space:nowrap}
 .sd-search button:hover{color:#fff;background-color:var(--sd-primary)}
-/* Popular posts with thumbnails, as configured in the original widget */
+/* Popular posts: every row gets a 46px thumb box so titles align; no image = tinted icon placeholder */
 .sd-side .widget ul,.sd-side .widget ol{list-style:none;margin:0;padding:0}
-.popular-posts li,.PopularPosts li{display:flex;gap:10px;margin-bottom:.9rem;align-items:flex-start}
-.PopularPosts .item-thumbnail,.popular-posts .item-thumbnail{flex:0 0 56px;width:56px}
-.PopularPosts .item-thumbnail img,.popular-posts .item-thumbnail img{width:56px;height:56px;object-fit:cover;border-radius:6px;display:block}
-/* Blogger's image proxy 404s on some old posts; hide the box rather than show a grey stub */
-.PopularPosts .item-thumbnail:empty,.popular-posts .item-thumbnail:empty{display:none}
-.PopularPosts .item-title,.popular-posts .item-title{flex:1 1 auto;min-width:0;line-height:1.5;font-size:14px;overflow-wrap:anywhere}
-.PopularPosts .item-snippet{display:none}
-.popular-posts .item-thumbnail{flex:0 0 60px}
-.popular-posts .item-thumbnail img{width:60px;height:60px;object-fit:cover;border-radius:6px;display:block}
-.popular-posts .item-title{line-height:1.5}
+.popular-posts li{display:flex;gap:10px;align-items:center;margin-bottom:.85rem}
+.popular-posts li:last-child{margin-bottom:0}
+.popular-posts .item-thumbnail{flex:0 0 46px;width:46px;height:46px;border-radius:6px;overflow:hidden;background-color:var(--sd-tint-2)}
+.popular-posts .item-thumbnail a{display:flex;width:100%;height:100%;align-items:center;justify-content:center;color:var(--sd-primary)}
+.popular-posts .item-thumbnail img{width:100%;height:100%;object-fit:cover;display:block}
+.popular-posts .item-thumbnail .sd-icon{width:18px;height:18px;opacity:.55}
+.popular-posts .item-title{flex:1 1 auto;min-width:0;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.popular-posts .item-snippet{display:none}
 /* Label cloud (footer), kept as a cloud like the original */
 /* Scrollbar stays nearly invisible until the cloud is hovered */
 .cloud-label-widget-content{display:flex;flex-wrap:wrap;gap:6px;max-height:9.5rem;overflow-y:auto;padding-right:8px;scrollbar-width:thin;scrollbar-color:rgba(217,199,172,.12) transparent;transition:scrollbar-color .25s ease}
@@ -342,7 +395,7 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 /* Comments */
 .comments{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--sd-border)}
 .comments .comment-block{padding:1rem 0;border-bottom:1px solid var(--sd-border)}
-.comments .comment-header{font-family:var(--sd-font-ui);font-size:13px;color:var(--sd-footer-text)}
+.comments .comment-header{font-family:var(--sd-font-ui);font-size:13px;color:var(--sd-meta-text)}
 
 /* Responsive: the whole point of the refactor */
 @media (max-width:991px){
@@ -361,6 +414,31 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 ]]></b:skin>
+</b:if>
+
+<b:if cond='data:view.isLayoutMode'>
+<b:template-skin><![CDATA[
+/* Layout editor (body#layout) only. The editor renders ONLY the sections (as div.section) plus this
+   template-skin - the template's own wrapper divs and head links never reach the editor DOM, so all
+   geometry must hang off section classes (emporio's proven float pattern), never off wrappers */
+/* No backdrop image: the editor blocks external images here; plain editor grey is fine */
+body#layout{width:1000px!important;margin:0!important;padding:52px 12px 12px!important;position:relative}
+/* The page-bg wrapper renders as an empty strip in the editor; kill its inline background */
+body#layout .page-bg{background:none!important;padding:0!important;min-height:0!important}
+body#layout .widget{width:auto}
+body#layout.ltr .draggable-widget .widget-wrap3{margin:0}
+/* Two columns: float the main section left, stack the three sidebar sections right */
+body#layout div.section.main-section{float:left;width:60%!important;min-width:0;margin:0 0 8px}
+body#layout div.section.sidebar-section{float:right;clear:right;width:36%!important;min-width:0;margin:0 0 8px}
+/* Full-width rows above and below the columns */
+body#layout div.section.header-section,body#layout div.section.nav-section{width:auto!important;margin:0 0 8px}
+body#layout div.section.footer-section{clear:both;width:auto!important;margin:0 0 8px}
+body#layout .sd-attribution{display:block;border:0;margin:0;padding:0;opacity:1}
+body#layout .sd-attribution .powered,body#layout .sd-attribution .copyright,body#layout .sd-attribution .totop-slot{display:none}
+/* Badge sits in the 52px top padding reserved above (Median UI pattern), not over the editor toolbar */
+body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;top:10px;right:12px;z-index:20;background-color:#8f5f2f;color:#fff;font-family:Roboto,sans-serif;font-size:13px;padding:8px 18px;border-radius:30px}
+]]></b:template-skin>
+</b:if>
 
 <b:defaultmarkups>
 <b:defaultmarkup type='Common'>
@@ -397,7 +475,7 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
   <data:blog.feedLinks/>
   <link href='https://fonts.googleapis.com' rel='preconnect'/>
   <link crossorigin='' href='https://fonts.gstatic.com' rel='preconnect'/>
-  <link href='https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap' rel='stylesheet'/>
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap' rel='stylesheet'/>
 </b:includable>
 </b:defaultmarkup>
 </b:defaultmarkups>
@@ -435,7 +513,10 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
       </b:includable>
       <b:includable id='behindImageStyle'>
     <b:if cond='data:sourceUrl'>
-      <b:include cond='data:this.image' data='{                    image: data:this.image,                    selector: &quot;.header-widget&quot;                  }' name='responsiveImageStyle'/>
+      <b:include cond='data:this.image' data='{
+        image: data:this.image,
+        selector: &quot;.header-widget&quot;
+      }' name='responsiveImageStyle'/>
       <style type='text/css'>
         .header-widget {
           background-position: <data:blog.locale.languageAlignment/>;
@@ -533,7 +614,7 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 
 <div class='row' id='content-wrap' style='--bs-gutter-x:var(--sd-gap);--bs-gutter-y:var(--sd-gap)'>
 
-<main class='col-12 col-lg'>
+<main class='col-12 col-lg sd-main'>
 <div class='sd-card'>
   <b:section class='main-section' id='main' name='Main Posts' showaddelement='no'>
     <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
@@ -551,7 +632,7 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
         <b:widget-setting name='postsPerAd'>1</b:widget-setting>
         <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
         <b:widget-setting name='backlinksLabel'/>
-        <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+        <b:widget-setting name='showDateHeader'>true</b:widget-setting>
         <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
         <b:widget-setting name='showCommentLink'>true</b:widget-setting>
         <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
@@ -574,7 +655,8 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
           <h2 class='date-header'>Archive: <b:eval expr='data:view.archive.rangeMessage'/></h2>
         </b:if>
         <b:include name='posts'/>
-        <b:include cond='!data:view.isSingleItem' name='blogPager'/>
+        <!-- On post pages newer/olderPageUrl point at the adjacent posts; static pages get no pager -->
+        <b:include cond='!data:view.isPage' name='blogPager'/>
       </b:includable>
       <b:includable id='aboutPostAuthor'>
   <div class='author-name'>
@@ -597,8 +679,12 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 </b:includable>
       <b:includable id='blogPager'>
         <div class='blog-pager'>
-          <b:if cond='data:olderPageUrl'><a expr:href='data:olderPageUrl'>&#8592; Older posts</a><b:else/><span/></b:if>
-          <b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl'>Newer posts &#8594;</a></b:if>
+          <b:if cond='data:olderPageUrl'>
+            <a class='pager-older' expr:href='data:olderPageUrl' rel='prev'>&#8592; <b:eval expr='data:view.isPost ? &quot;Older post&quot; : &quot;Older posts&quot;'/></a>
+          <b:else/><span/></b:if>
+          <b:if cond='data:newerPageUrl'>
+            <a class='pager-newer' expr:href='data:newerPageUrl' rel='next'><b:eval expr='data:view.isPost ? &quot;Newer post&quot; : &quot;Newer posts&quot;'/> &#8594;</a>
+          </b:if>
         </div>
       </b:includable>
       <b:includable id='commentAuthorAvatar'>
@@ -688,7 +774,8 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
             <h3 class='widget-title'><b:eval expr='data:post.numberOfComments + &quot; Comments&quot;'/></h3>
             <b:loop values='data:post.comments' var='comment'>
               <div class='comment-block'>
-                <div class='comment-header'><b:eval expr='data:comment.author'/> &#183; <b:eval expr='data:comment.date format &quot;yyyy-MM-dd&quot;'/></div>
+                <!-- comment has no .date member; only .timestamp (pre-formatted string). eval'ing .date kills the whole Blog1 render on any post WITH comments -->
+                <div class='comment-header'><data:comment.author/> &#183; <data:comment.timestamp/></div>
                 <div class='comment-body'><data:comment.body/></div>
               </div>
             </b:loop>
@@ -770,7 +857,7 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
       <b:include data='post' name='postBodySnippet'/>
       <b:include data='post' name='postJumpLink'/>
     </b:if>
-    <b:include data='post' name='postFooter'/>
+    <b:include data='post' name='postByline'/>
   </div>
 </b:includable>
       <b:includable id='postBody' var='post'>
@@ -814,11 +901,13 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
     </span>
   </b:if>
 </b:includable>
-      <b:includable id='postFooter' var='post'>
-        <footer class='post-footer'>
+      <b:includable id='postByline' var='post'>
+        <div class='post-meta'>
           <b:if cond='data:widgets.Blog.first.allBylineItems.timestamp'>
+            <!-- Server text is a fallback only: `format` renders in UTC, not blog timezone. The inline
+                 script re-renders from the iso8601 datetime attr (which carries the blog offset) -->
             <span class='post-timestamp'>
-              <a expr:href='data:post.url' rel='bookmark'><time expr:datetime='data:post.date.iso8601' itemprop='datePublished'><b:eval expr='data:post.date format &quot;yyyy-MM-dd&quot;'/></time></a>
+              <a expr:href='data:post.url' rel='bookmark'><time expr:datetime='data:post.date.iso8601' itemprop='datePublished'><b:eval expr='data:view.isSingleItem ? (data:post.date format &quot;yyyy-MM-dd HH:mm&quot;) : (data:post.date format &quot;yyyy-MM-dd&quot;)'/></time></a>
             </span>
           </b:if>
           <b:if cond='data:widgets.Blog.first.allBylineItems.author'>
@@ -834,7 +923,7 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
               </b:loop>
             </span>
           </b:if>
-        </footer>
+        </div>
       </b:includable>
       <b:includable id='postFooterAuthorProfile' var='post'>
   <b:if cond='data:post.author.aboutMe and data:view.isPost'>
@@ -888,9 +977,9 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
             <div class='date-posts'>
               <article class='post' itemscope='itemscope' itemtype='https://schema.org/BlogPosting'>
                 <b:include data='post' name='postTitle'/>
+                <b:include data='post' name='postByline'/>
                 <b:include data='post' name='postBody'/>
                 <b:include cond='!data:view.isSingleItem and !data:view.isPage' data='post' name='postJumpLink'/>
-                <b:include data='post' name='postFooter'/>
               </article>
               <b:include cond='data:view.isSingleItem or data:view.isPage' data='post' name='comments'/>
             </div>
@@ -1049,11 +1138,15 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
           <ul>
             <b:loop values='data:posts' var='post'>
               <li>
-                <b:if cond='data:post.featuredImage'>
-                  <div class='item-thumbnail'>
-                    <a expr:href='data:post.url'><img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 120, &quot;1:1&quot;)' loading='lazy'/></a>
-                  </div>
-                </b:if>
+                <div class='item-thumbnail'>
+                  <a expr:href='data:post.url' tabindex='-1'>
+                    <b:if cond='data:post.featuredImage'>
+                      <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 92, &quot;1:1&quot;)' loading='lazy'/>
+                    <b:else/>
+                      <svg aria-hidden='true' class='sd-icon'><use xlink:href='#i-image'/></svg>
+                    </b:if>
+                  </a>
+                </div>
                 <div class='item-title'><a expr:href='data:post.url'><data:post.title/></a></div>
               </li>
             </b:loop>
@@ -1069,53 +1162,16 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
       <b:includable id='content'>
   <div class='widget-content'>
     <b:include data='feeds' name='feeds'/>
-    <div style='clear:both'/>
   </div>
 </b:includable>
       <b:includable id='feeds' var='feeds'>
-  <b:loop values='data:feeds' var='feed'>
-    <div expr:class='&quot;subscribe-wrapper subscribe-type-&quot; + data:feed.type'>
-
-      <div expr:class='&quot;subscribe expanded subscribe-type-&quot; + data:feed.type' expr:id='&quot;SW_READER_LIST_&quot; + data:widgetId + data:feed.type' style='display:none;'>
-        <div class='top'>
-          <span class='inner' expr:onclick='&quot;return(_SW_toggleReaderList(event, \&quot;&quot; + data:widgetId +data:feed.type + &quot;\&quot;));&quot;'>
-            <img class='subscribe-dropdown-arrow' expr:src='data:arrowDropdownImg'/>
-            <img align='absmiddle' alt='' border='0' class='feed-icon' expr:src='data:feedIconImg'/>
-            <data:feed.title/>
-          </span>
-
-          <div class='feed-reader-links'>
-            <a class='feed-reader-link' expr:href='&quot;https://www.netvibes.com/subscribe.php?url=&quot; + data:feed.encodedUrl' target='_blank'>
-              <img expr:src='data:imagePathBase + &quot;subscribe-netvibes.png&quot;'/>
-            </a>
-            <a class='feed-reader-link' expr:href='&quot;https://add.my.yahoo.com/content?url=&quot; + data:feed.encodedUrl' target='_blank'>
-              <img expr:src='data:imagePathBase + &quot;subscribe-yahoo.png&quot;'/>
-            </a>
-            <a class='feed-reader-link' expr:href='data:feed.url' target='_blank'>
-              <img align='absmiddle' class='feed-icon' expr:src='data:feedIconImg'/>
-              Atom
-            </a>
-          </div>
-
-        </div>
-        <div class='bottom'/>
-      </div>
-
-      <div class='subscribe' expr:id='&quot;SW_READER_LIST_CLOSED_&quot; + data:widgetId +data:feed.type' expr:onclick='&quot;return(_SW_toggleReaderList(event, \&quot;&quot; + data:widgetId +data:feed.type + &quot;\&quot;));&quot;'>
-        <div class='top'>
-           <span class='inner'>
-             <img class='subscribe-dropdown-arrow' expr:src='data:arrowDropdownImg'/>
-             <span expr:onclick='&quot;return(_SW_toggleReaderList(event, \&quot;&quot; + data:widgetId +data:feed.type + &quot;\&quot;));&quot;'>
-               <img align='absmiddle' alt='' border='0' class='feed-icon' expr:src='data:feedIconImg'/>
-               <data:feed.title/>
-             </span>
-           </span>
-         </div>
-        <div class='bottom'/>
-      </div>
-
-    </div>
-  </b:loop>
+  <!-- Replaces Blogger's stock markup: its arrow/feed GIFs have baked-in white backgrounds (broken in
+       dark mode) and the dropdown only reveals Netvibes/Yahoo reader links, both long dead -->
+  <ul class='sd-feeds'>
+    <b:loop values='data:feeds' var='feed'>
+      <li><a expr:href='data:feed.url' target='_blank'><svg aria-hidden='true' class='sd-icon'><use xlink:href='#i-rss'/></svg><data:feed.title/></a></li>
+    </b:loop>
+  </ul>
 </b:includable>
     </b:widget>
   </b:section>
@@ -1364,6 +1420,8 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 <symbol id='i-moon' viewBox='0 0 24 24'><path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/></symbol>
 <symbol id='i-arrow-up' viewBox='0 0 24 24'><path d='M12 19V5m-7 7l7-7 7 7'/></symbol>
 <symbol fill='currentColor' id='i-blogger' stroke='none' viewBox='0 0 24 24'><path d='M21.2 8.4h-1.6c-.3 0-.5-.2-.6-.5-.6-3.3-3.5-5.8-6.9-5.8H9.3C5.4 2.1 2.2 5.3 2.2 9.2v5.6c0 3.9 3.2 7.1 7.1 7.1h5.4c3.9 0 7.1-3.2 7.1-7.1v-5c0-.8-.4-1.4-.6-1.4zM9.2 7.1h3.4c.7 0 1.3.6 1.3 1.3s-.6 1.3-1.3 1.3H9.2c-.7 0-1.3-.6-1.3-1.3s.6-1.3 1.3-1.3zm5.6 9.8H9.2c-.7 0-1.3-.6-1.3-1.3s.6-1.3 1.3-1.3h5.6c.7 0 1.3.6 1.3 1.3s-.6 1.3-1.3 1.3z'/></symbol>
+<symbol id='i-image' viewBox='0 0 24 24'><rect height='18' rx='2' width='18' x='3' y='3'/><circle cx='8.5' cy='8.5' r='1.5'/><path d='m21 15-5-5L5 21'/></symbol>
+<symbol id='i-rss' viewBox='0 0 24 24'><path d='M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16'/><circle cx='5' cy='19' fill='currentColor' r='1.5' stroke='none'/></symbol>
 <symbol id='i-sun' viewBox='0 0 24 24'><circle cx='12' cy='12' r='4'/><path d='M12 2v2m0 16v2m10-10h-2M4 12H2m15.66-6.66l-1.41 1.41M7.75 16.25l-1.41 1.41m11.32 0l-1.41-1.41M7.75 7.75L6.34 6.34'/></symbol>
 </svg>
 
@@ -1374,11 +1432,18 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
     var dark=html.classList.contains('dark-mode');
     if(btn)btn.querySelector('use').setAttribute('xlink:href',dark?'#i-sun':'#i-moon');
   }
-  // Blogger's img proxy 404s on some old posts; drop the thumbnail box instead of leaving a stub
+  // Blogger's img proxy 404s on some old posts; swap the broken img for the placeholder icon so rows stay aligned
   document.querySelectorAll('.item-thumbnail img').forEach(function(img){
-    function bad(){var box=img.closest('.item-thumbnail');if(box)box.style.display='none';}
+    function bad(){img.outerHTML='<svg aria-hidden="true" class="sd-icon"><use xlink:href="#i-image"/></svg>';}
     if(img.complete&&img.naturalWidth===0)bad();
     img.addEventListener('error',bad);
+  });
+  // Server-side `format` runs in UTC; re-render timestamps from the iso8601 attr, which carries the
+  // blog-timezone offset - plain string slicing, no Date() timezone math
+  var single=document.body.classList.contains('single');
+  document.querySelectorAll('.post-timestamp time').forEach(function(t){
+    var m=(t.getAttribute('datetime')||'').match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);
+    if(m)t.textContent=single?m[1]+' '+m[2]:m[1];
   });
   // endYear variable is the no-JS fallback; keep the displayed year current without yearly edits
   var cy=document.getElementById('cyear');
