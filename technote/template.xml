@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:render='true' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='1.0.2' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
+<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:render='true' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='2.0.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
 <b:include data='blog' name='JetAll-head-content'/>
 <b:if cond='!data:view.isLayoutMode'>
 <b:skin><![CDATA[/*
@@ -61,18 +61,18 @@
 -------------------------
 
 <Group description="_Main Color">
-<Variable name="keycolor" description="Main Color" type="color" default="#45b998" value="#45b998"/>
-<Variable name="body.background" description="Body Background Color" type="color" default="#ffffff" value="#ffffff"/>
-<Variable name="body.text.color" description="Font Color" type="color" default="#686868" value="#686868"/>
-<Variable name="posts.title.color" description="Heading Color" type="color" default="#343a40" value="#000000"/>
-<Variable name="body.link.color" description="Link Color" type="color" default="$(keycolor)" value="#45b998"/>
-<Variable name="body.hover.color" description="Link Hover" type="color" default="#3a9d82" value="#3a9d82"/>
-<Variable name="border.color" description="Border Color" type="color" default="#efefef" value="#efefef"/>
-<Variable name="posts.text.color" description="Blockquote Border Color" type="color" default="$(keycolor)" value="#45b998"/>
+<Variable name="keycolor" description="Main Color" type="color" default="#0b8168" value="#0b8168"/>
+<Variable name="body.background" description="Body Background Color" type="color" default="#fbfbf9" value="#fbfbf9"/>
+<Variable name="body.text.color" description="Font Color" type="color" default="#3a4450" value="#3a4450"/>
+<Variable name="posts.title.color" description="Heading Color" type="color" default="#2b3440" value="#2b3440"/>
+<Variable name="body.link.color" description="Link Color" type="color" default="$(keycolor)" value="#0b8168"/>
+<Variable name="body.hover.color" description="Link Hover" type="color" default="#0a6f5a" value="#0a6f5a"/>
+<Variable name="border.color" description="Border Color" type="color" default="#e8eae6" value="#e8eae6"/>
+<Variable name="posts.text.color" description="Blockquote Border Color" type="color" default="$(keycolor)" value="#0b8168"/>
 </Group>
 
 <Group description="_Typography">
-<Variable name="body.text" description="Body Font" type="font" default="normal normal 16px system-ui,-apple-system,Segoe UI,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji" value="normal normal 16px system-ui,-apple-system,Segoe UI,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji"/>
+<Variable name="body.text" description="Body Font" type="font" default="normal normal 16px Inter,-apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Noto Sans SC,Segoe UI,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji" value="normal normal 16px Inter,-apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Noto Sans SC,Segoe UI,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji"/>
 <Variable name="posts.title" description="Heading Font" type="font" default="normal bold 28px var(--bs-font-sans-serif)" value="normal bold 28px var(--bs-font-sans-serif)"/>
 <Variable name="title.h2" description="H2 Size" type="length" default="22px" min="12px" max="50px" value="22px"/>
 <Variable name="title.h3" description="H3 Size" type="length" default="20px" min="12px" max="50px" value="20px"/>
@@ -86,24 +86,24 @@
 </Group>
 
 <Group description="_Header Color">
-<Variable name="header.bg" description="Background" type="color" default="#2c3e50" value="#2c3e50"/>
-<Variable name="header.color" description="Font Color " type="color" default="#ffffff" value="#ffffff"/>
-<Variable name="header.border" description="Border Color" type="color" default="#34495e" value="#34495e"/>
+<Variable name="header.bg" description="Background" type="color" default="#fbfbf9" value="#fbfbf9"/>
+<Variable name="header.color" description="Font Color " type="color" default="#2b3440" value="#2b3440"/>
+<Variable name="header.border" description="Border Color" type="color" default="#e8eae6" value="#e8eae6"/>
 </Group>
 
 <Group description="_Menu">
-<Variable name="tabs.font" description="Menu Font" type="font" default="normal bold 16px var(--bs-font-sans-serif)" value="normal bold 16px var(--bs-font-sans-serif)"/>
-<Variable name="tabs.color" description="Font Color" type="color" default="$(body.text.color)" value="#c8d6e0"/>
-<Variable name="tabs.hover" description="Font Hover" type="color" default="$(keycolor)" value="#45b998"/>
-<Variable name="tabs.selected.color" description="Font Selected" type="color" default="$(keycolor)" value="#45b998"/>
+<Variable name="tabs.font" description="Menu Font" type="font" default="normal 500 16px var(--bs-font-sans-serif)" value="normal 500 16px var(--bs-font-sans-serif)"/>
+<Variable name="tabs.color" description="Font Color" type="color" default="#6e7781" value="#6e7781"/>
+<Variable name="tabs.hover" description="Font Hover" type="color" default="#2b3440" value="#2b3440"/>
+<Variable name="tabs.selected.color" description="Font Selected" type="color" default="$(keycolor)" value="#0b8168"/>
 </Group>
 
 <Group description="_Dropdown Menu">
 <Variable name="dropdown.font" description="Font Size" type="length" default="16px" min="12px" max="50px" value="15px"/>
 <Variable name="dropdown.bg" description="Background Color" type="color" default="$(body.text.color)" value="#ffffff"/>
 <Variable name="dropdown.color" description="Font Color" type="color" default="$(keycolor)" value="#686868"/>
-<Variable name="dropdown.hover" description="Font Hover" type="color" default="$(keycolor)" value="#45b998"/>
-<Variable name="dropdown.selected" description="Dropdown Selected Color" type="color" default="$(keycolor)" value="#45b998"/>
+<Variable name="dropdown.hover" description="Font Hover" type="color" default="$(keycolor)" value="#0b8168"/>
+<Variable name="dropdown.selected" description="Dropdown Selected Color" type="color" default="$(keycolor)" value="#0b8168"/>
 </Group>
 
 <Group description="_Footer Color">
@@ -119,8 +119,8 @@
 </Group>
 
 <Group description="_Button">
-<Variable name="posts.icons.color" description="Button Color" type="color" default="$(keycolor)" value="#45b998"/>
-<Variable name="labels.background.color" description="Button Hover"  type="color"  default="#3a9d82" value="#3a9d82"/>
+<Variable name="posts.icons.color" description="Button Color" type="color" default="$(keycolor)" value="#0b8168"/>
+<Variable name="labels.background.color" description="Button Hover"  type="color"  default="#0a6f5a" value="#0a6f5a"/>
 </Group>
 
 <Group description="_Comment Form">
@@ -129,7 +129,8 @@
 </Group>
 */
 
-:root{--bs-font-sans-serif:$(body.text.family);--bs-body-bg:$(body.background);--bs-body-color:$(body.text.color);--jt-primary:$(keycolor);--jt-heading-color:$(posts.title.color);--jt-heading-link:$(posts.title.color);--jt-heading-hover:$(keycolor);--jt-link-color:$(body.link.color);--jt-link-hover:$(body.hover.color);--jt-blockquote:$(posts.text.color);--jt-btn-primary:$(posts.icons.color);--jt-btn-primary-hover:$(labels.background.color);--jt-btn-light-hover:$(posts.title.color);--jt-border-light:$(border.color);--jt-bg-light:#f3f7f9;--jt-archive-bg:#ffffff;--jt-nav-color:$(tabs.color);--jt-nav-hover:$(tabs.hover);--jt-nav-selected:$(tabs.selected.color);--jt-dropdown-bg:$(dropdown.bg);--jt-dropdown-color:$(dropdown.color);--jt-dropdown-hover:$(dropdown.hover);--jt-dropdown-selected:$(dropdown.selected);--jt-header-bg:$(header.bg);--jt-header-color:$(header.color);--jt-header-border:$(header.border);--jt-footer-bg:$(footer.bg);--jt-footer-color:$(footer.color);--jt-footer-link:$(footer.link);--jt-footer-border:$(footer.border);--jt-socket-bg:$(socket.bg);--jt-socket-color:$(socket.color)}.dark-mode{--bs-body-bg:hsl(210, 11%, 15%);--bs-body-color:hsl(210, 11%, 80%);--jt-heading-color:hsl(210, 11%, 80%);--jt-heading-link:hsl(210, 11%, 80%);--jt-btn-light-hover:hsl(210, 11%, 85%);--jt-border-light:hsl(210, 11%, 20%);--jt-bg-light:hsl(210, 11%, 20%);--jt-archive-bg:hsl(210, 11%, 17%);--jt-nav-color:hsl(210, 11%, 70%);--jt-dropdown-bg:hsl(210, 11%, 18%);--jt-dropdown-color:hsl(210, 11%, 70%);--jt-header-bg:hsl(210, 11%, 15%);--jt-header-color:hsl(210, 11%, 80%);--jt-header-border:hsl(210, 11%, 20%);--jt-footer-bg:hsl(210, 11%, 15%);--jt-footer-color:hsl(210, 11%, 80%);--jt-footer-border:hsl(210, 11%, 20%);--jt-socket-bg:hsl(210, 11%, 17%);--jt-socket-color:hsl(210, 11%, 80%)}body{font:$(body.text);color:var(--bs-body-color);background-color:var(--bs-body-bg);line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{font:$(posts.title);line-height:1.2}/* Common transitions */
+:root{--bs-font-sans-serif:$(body.text.family);--bs-body-bg:$(body.background);--bs-body-color:$(body.text.color);--jt-primary:$(keycolor);--jt-heading-color:$(posts.title.color);--jt-heading-link:$(posts.title.color);--jt-heading-hover:$(keycolor);--jt-link-color:$(body.link.color);--jt-link-hover:$(body.hover.color);--jt-blockquote:$(posts.text.color);--jt-btn-primary:$(posts.icons.color);--jt-btn-primary-hover:$(labels.background.color);--jt-btn-light-hover:$(posts.title.color);--jt-border-light:$(border.color);--jt-bg-light:#f3f7f9;--jt-archive-bg:#ffffff;--jt-nav-color:$(tabs.color);--jt-nav-hover:$(tabs.hover);--jt-nav-selected:$(tabs.selected.color);--jt-dropdown-bg:$(dropdown.bg);--jt-dropdown-color:$(dropdown.color);--jt-dropdown-hover:$(dropdown.hover);--jt-dropdown-selected:$(dropdown.selected);--jt-header-bg:$(header.bg);--jt-header-color:$(header.color);--jt-header-border:$(header.border);--jt-footer-bg:$(footer.bg);--jt-footer-color:$(footer.color);--jt-footer-link:$(footer.link);--jt-footer-border:$(footer.border);--jt-socket-bg:$(socket.bg);--jt-socket-color:$(socket.color)}/* Dark palette: gray not black, no pure-white text (halation), desaturated accent */
+.dark-mode{--bs-body-bg:#1d2126;--bs-body-color:#b9c2cb;--jt-primary:#4ab896;--jt-heading-color:#d3dae1;--jt-heading-link:#d3dae1;--jt-link-color:#4ab896;--jt-link-hover:#5fcaa9;--jt-btn-primary:#4ab896;--jt-btn-primary-hover:#5fcaa9;--jt-btn-light-hover:#d3dae1;--jt-border-light:#2c333b;--jt-bg-light:#262c33;--jt-archive-bg:#22272d;--jt-nav-color:#8a939e;--jt-nav-hover:#d3dae1;--jt-nav-selected:#4ab896;--jt-dropdown-bg:#22272d;--jt-dropdown-color:#8a939e;--jt-dropdown-hover:#d3dae1;--jt-dropdown-selected:#4ab896;--jt-header-bg:#1d2126;--jt-header-color:#d3dae1;--jt-header-border:#2c333b;--jt-footer-bg:#191d21;--jt-footer-color:#8a939e;--jt-footer-link:#b9c2cb;--jt-footer-border:#2c333b;--jt-socket-bg:#16191d;--jt-socket-color:#8a939e}body{font:$(body.text);color:var(--bs-body-color);background-color:var(--bs-body-bg);line-height:1.8;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{font:$(posts.title);line-height:1.3;letter-spacing:-.02em}/* Common transitions */
 a,#navbar .dropdown-menu,#navbar .dropdown-toggle,#navbar .nav-link,#navbar.d-block,.lazyload{transition:all .3s cubic-bezier(.4,0,.2,1)}
 a{color:var(--jt-link-color)}a:hover{color:var(--jt-link-hover)}
 /* Font sizes */
@@ -144,9 +145,9 @@ a{color:var(--jt-link-color)}a:hover{color:var(--jt-link-hover)}
 .tr-caption-container{width:100%}
 .separator a,.tr-caption-container a{margin:0!important;padding:0!important}
 .tr-caption{font-size:12px;font-style:italic}.widget:last-child{margin-bottom:0!important}#post-body .widget{margin-top:1.5rem}.item-title{color:var(--jt-heading-link)}.item-title:hover{color:var(--jt-heading-hover)}#comment-editor{width:100%}/* Widget titles */
-#primary .widget-title,#footer .widget-title{text-transform:uppercase}
-#primary .widget-title{font-weight:300}
-#footer .widget-title,#sidebar .widget-title{font-size:13px!important}#primary .widget-title>span{background-color:var(--bs-body-bg);padding-right:5px;position:relative}#main .widget-title:before,#sidebar .widget-title:before{background-color:var(--jt-bg-light);content:"";height:1px;display:block;position:absolute;top:50%;transform:translateY(-50%);width:100%}#main .widget-title:before{border-right:30px solid var(--jt-primary);height:5px}.send-error:not(.loading) .contact-form-msg,.send-success:not(.loading) .contact-form-msg{display:block!important}.send-success .contact-form-msg{border-color:rgba(25,135,84,.3)!important}.send-error .contact-form-msg{border-color:rgba(255,193,7,.3)!important}.send-success .contact-form-msg:before{content:attr(data-success)}.send-error .contact-form-msg:before{content:attr(data-error)}hr.example-ads:before{content:"Advertisement here"}hr.example-ads{background-color:var(--jt-bg-light);border-radius:.25rem;font-size:.875rem;height:auto;margin:0;opacity:1;padding:1.5rem 0;text-align:center}body>.google-auto-placed{margin:0 auto 1.5rem;max-width:1108px}.google-auto-placed>ins{margin:0!important}.h1,h1{font-size:calc(1.1rem + .9vw)}.h2,h2{font-size:calc(1rem + .5vw)}.h3,h3{font-size:calc(1rem + .3vw)}.h4,h4{font-size:calc(1rem + .1vw)}.h5,h5{font-size:$(title.h5)}.h6,h6{font-size:16px}.entry-title{color:var(--jt-heading-color)}.entry-text h1,.entry-text h2,.entry-text h3,.entry-text h4,.entry-text h5,.entry-text h6{color:var(--jt-heading-color);padding-top:1em;margin-bottom:1rem}.entry-text li{margin-bottom:.5rem}.entry-text table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.9rem}.entry-text th,.entry-text td{border:1px solid var(--jt-border-light);padding:.6rem .8rem;vertical-align:top}.entry-text th{background-color:var(--jt-bg-light);font-weight:600;font-size:1rem;white-space:nowrap}.entry-text tr:hover td{background-color:var(--jt-bg-light)}.entry-text table code{font-size:.8rem}/* Responsive utilities */
+/* Widget titles as quiet uppercase eyebrows, no decorative rules */
+.widget-title{text-transform:uppercase;font-size:12px!important;font-weight:600!important;letter-spacing:.1em;color:var(--jt-nav-color)}
+.widget-title>span{background:transparent;padding:0}.send-error:not(.loading) .contact-form-msg,.send-success:not(.loading) .contact-form-msg{display:block!important}.send-success .contact-form-msg{border-color:rgba(25,135,84,.3)!important}.send-error .contact-form-msg{border-color:rgba(255,193,7,.3)!important}.send-success .contact-form-msg:before{content:attr(data-success)}.send-error .contact-form-msg:before{content:attr(data-error)}hr.example-ads:before{content:"Advertisement here"}hr.example-ads{background-color:var(--jt-bg-light);border-radius:.25rem;font-size:.875rem;height:auto;margin:0;opacity:1;padding:1.5rem 0;text-align:center}body>.google-auto-placed{margin:0 auto 1.5rem;max-width:1108px}.google-auto-placed>ins{margin:0!important}.h1,h1{font-size:calc(1.1rem + .9vw)}.h2,h2{font-size:calc(1rem + .5vw)}.h3,h3{font-size:calc(1rem + .3vw)}.h4,h4{font-size:calc(1rem + .1vw)}.h5,h5{font-size:$(title.h5)}.h6,h6{font-size:16px}.entry-title{color:var(--jt-heading-color)}.entry-text h1,.entry-text h2,.entry-text h3,.entry-text h4,.entry-text h5,.entry-text h6{color:var(--jt-heading-color);padding-top:1em;margin-bottom:1rem}.entry-text li{margin-bottom:.5rem}.entry-text table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.9rem}.entry-text th,.entry-text td{border:1px solid var(--jt-border-light);padding:.6rem .8rem;vertical-align:top}.entry-text th{background-color:var(--jt-bg-light);font-weight:600;font-size:1rem;white-space:nowrap}.entry-text tr:hover td{background-color:var(--jt-bg-light)}.entry-text table code{font-size:.8rem}/* Responsive utilities */
 @media (min-width:576px){.ratio-sm-4x3{padding-bottom:75%}.ratio-sm-16x9{padding-bottom:56.25%}#post-pager .next-page{border-left:1px solid}}
 @media (min-width:768px){.position-md-relative{position:relative}}
 @media (min-width:992px){#sidebar{border-left:1px solid}}
@@ -155,9 +156,36 @@ a{color:var(--jt-link-color)}a:hover{color:var(--jt-link-hover)}
 @media (min-width:1200px){.h1,h1{font-size:$(posts.title.size)}.h2,h2{font-size:$(title.h2)}.h3,h3{font-size:$(title.h3)}.h4,h4{font-size:$(title.h4)}}@media (max-width:991.98px){input:checked~.dropdown-menu{display:block}input:checked+.dropdown-toggle{color:var(--jt-dropdown-selected)}.logo-wrap{width:$(logo.width.mobile)}#search-header .dropdown-menu{width:100%}#navbar{background-color:var(--jt-header-bg);padding-top:70px;padding-bottom:30px;position:fixed;left:0;right:0;top:0;bottom:0;width:auto}#navbar.d-block{opacity:0;transform:translateX(-20%)}#navbar.show{transform:translateX(0);opacity:1}#navbar .navbar-nav{max-height:100%;overflow-y:auto}#navbar-toggle:checked~#header-main #navbar{display:block}#navbar .nav-link{border-bottom:1px solid var(--jt-header-border);font-size:16px!important;color:var(--jt-dropdown-color)}#navbar .menu-item:hover>.nav-link{color:var(--jt-dropdown-hover)}#navbar .active>.nav-link{color:var(--jt-dropdown-selected)}#navbar .dropdown-toggle{border-left:1px solid var(--jt-header-border);height:2.5rem;padding:0 1rem;position:absolute;right:0;top:0}#navbar .dropdown-menu{background-color:var(--jt-dropdown-bg);border:none;padding-left:10px}#sidebar{border-top:1px solid}}@media (max-width:575.98px){.entry-text table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.feature-posts .item-thumbnail{margin-bottom:-150px}.feature-posts .item-thumbnail a{border-radius:0!important;box-shadow:none!important;padding-bottom:75%}.feature-posts .item-content{background-color:var(--bs-body-bg);border:5px solid;border-radius:.25rem}#post-pager .prev-page+.next-page{border-top:1px solid}.full-width,.px-3 .google-auto-placed{margin-left:-1rem;margin-right:-1rem;width:auto!important}}
 
 /* Custom Styles */
-.navbar-brand{color:#fff!important;font:400 2.8rem/1.2 'Bungee Shade',cursive!important;text-shadow:2px 2px 4px rgba(0,0,0,.3);letter-spacing:-.5px}
-.navbar-brand:hover{color:#45b998!important}
+/* Brand: monospace wordmark with blinking terminal cursor */
+.navbar-brand{color:var(--jt-heading-color)!important;font:700 1.45rem/1.2 'JetBrains Mono',SFMono-Regular,Menlo,Consolas,monospace!important;letter-spacing:-.03em}
+.navbar-brand:hover{color:var(--jt-primary)!important}
+.navbar-brand:after{content:"_";color:var(--jt-primary);margin-left:.15em;animation:brand-blink 1.2s steps(1) infinite}
+@keyframes brand-blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.navbar-brand:after{animation:none}}
 .logo-wrap .navbar-brand img{max-height:60px}
+/* Sticky header: translucent + blur, hairline border */
+#header{background-color:var(--jt-header-bg);background-color:color-mix(in srgb,var(--jt-header-bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:none!important}
+/* Buttons: ghost by default, fill on hover */
+.jt-btn-primary{background-color:transparent;color:var(--jt-primary);border:1px solid var(--jt-primary)}
+.hover-btn-primary:hover,.jt-btn-primary:hover{color:#fff!important;background-color:var(--jt-btn-primary-hover)!important;border-color:var(--jt-btn-primary-hover)!important}
+/* Cards: soft radius, no shadow, gentle image zoom on hover */
+.item-thumbnail,.item-thumbnail a{border-radius:12px!important;overflow:hidden}
+.item-thumbnail img{transition:transform .35s ease}
+.item-post:hover .item-thumbnail img{transform:scale(1.03)}
+.btn{border-radius:8px!important}
+/* Post body: reading measure */
+.entry-text{font-size:1.03125rem;letter-spacing:.01em}
+.entry-text p{margin-bottom:1.25em}
+/* Label chips: monospace inline-code look (theme signature) */
+.item-tag{display:flex;flex-wrap:wrap;gap:6px}
+.item-tag a{font-family:'JetBrains Mono',SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;font-weight:500;color:var(--jt-primary)!important;background-color:rgba(11,129,104,.1);background-color:color-mix(in srgb,var(--jt-primary) 10%,transparent);border-radius:6px;padding:3px 9px;line-height:1.5;text-decoration:none!important}
+.item-tag a:hover{background-color:rgba(11,129,104,.18);background-color:color-mix(in srgb,var(--jt-primary) 18%,transparent)}
+/* Meta rows: quiet text, dates are self-explanatory without clock icons */
+.item-meta{font-size:13px}
+.item-meta .jt-icon{display:none}
+/* Sidebar categories: mono names, quiet counts */
+.categories .list a{font-family:'JetBrains Mono',SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;font-weight:500!important}
+.categories .list .fs-9{color:var(--jt-nav-color)}
 
 /* Desktop Menu Adjustments */
 #navbar .nav-link{color:var(--jt-nav-color);font-weight:500;transition:color 0.3s ease}
@@ -188,7 +216,7 @@ body#layout:before {
 background-color: #2c3e50;
 border-radius: 30px;
 color: #fff;
-content: "TechNote v1.0.2";
+content: "TechNote v2.0.0";
 display: block;
 font-family: Roboto,sans-serif;
 padding: 10px 20px;
@@ -336,7 +364,7 @@ width: 35%;
 </b:if>
 <link href='https://fonts.googleapis.com' rel='preconnect'/>
 <link crossorigin='' href='https://fonts.gstatic.com' rel='preconnect'/>
-<link href='https://fonts.googleapis.com/css2?family=Bungee+Shade&amp;display=swap' rel='stylesheet'/>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap' rel='stylesheet'/>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'/>
 </b:includable>
 </b:defaultmarkup>
@@ -867,7 +895,6 @@ width: 35%;
 <b:if cond='data:post.labels and data:jwidget.allBylineItems.labels'>
 <div class='item-tag mb-1 fw-light fs-8 text-secondary'>
 <b:loop index='i' values='data:post.labels where (l =&gt; l.name not contains &quot;#&quot;) take data:skin.vars.maxLabel' var='label'>
-<b:if cond='data:i != 0'>,</b:if>
 <a class='text-reset hover-text-primary text-decoration-none' expr:href='data:label.url.canonical + &quot;?max-results=10&quot;' rel='tag'>
 <data:label.name/>
 </a>
@@ -895,7 +922,7 @@ width: 35%;
     <b:includable id='JetLabel'>
       <b:include name='JetWidgetTitle'/>
       <div class='widget-content categories'>
-        <ul expr:class='data:display + &quot; d-flex flex-wrap list-unstyled&quot;'><b:loop index='i' values='data:labels' var='label'><b:if cond='data:display == &quot;list&quot; and data:label.name contains &quot;#&quot;'><li class='mb-2 pe-2 col-6'><a class='text-reset fw-bold hover-text-primary text-decoration-none' expr:href='data:label.url + &quot;?max-results=10&quot;'><span class='align-middle'><data:label.name/></span><b:if cond='data:showFreqNumbers'><span class='ms-1 fw-light fs-9'>[<data:label.count/>]</span></b:if></a></li><b:elseif cond='data:display == &quot;cloud&quot; and data:label.name not contains &quot;#&quot;'/><li class='me-2 mb-2'><a class='btn btn-sm jt-btn-light rounded-pill px-3' expr:href='data:label.url + &quot;?max-results=10&quot;'><span class='align-middle'><data:label.name/></span><b:if cond='data:showFreqNumbers'><span class='ms-1 fw-light fs-9'>[<data:label.count/>]</span></b:if></a></li></b:if></b:loop></ul>
+        <ul expr:class='data:display + &quot; d-flex flex-wrap list-unstyled&quot;'><b:loop index='i' values='data:labels' var='label'><b:if cond='data:display == &quot;list&quot; and data:label.name contains &quot;#&quot;'><li class='mb-2 pe-2 col-6'><a class='text-reset fw-bold hover-text-primary text-decoration-none' expr:href='data:label.url + &quot;?max-results=10&quot;'><span class='align-middle'><data:label.name/></span><b:if cond='data:showFreqNumbers'><span class='ms-1 fw-light fs-9'><data:label.count/></span></b:if></a></li><b:elseif cond='data:display == &quot;cloud&quot; and data:label.name not contains &quot;#&quot;'/><li class='me-2 mb-2'><a class='btn btn-sm jt-btn-light rounded-pill px-3' expr:href='data:label.url + &quot;?max-results=10&quot;'><span class='align-middle'><data:label.name/></span><b:if cond='data:showFreqNumbers'><span class='ms-1 fw-light fs-9'><data:label.count/></span></b:if></a></li></b:if></b:loop></ul>
       </div>
     </b:includable>
     <b:includable id='JetPageList'>
@@ -1046,7 +1073,6 @@ width: 35%;
 <b:if cond='data:post.labels and data:jwidget.allBylineItems.labels'>
 <div class='item-tag mb-3 fw-light text-secondary'>
 <b:loop index='i' values='data:post.labels where (l =&gt; l.name not contains &quot;#&quot;) take data:skin.vars.maxLabel' var='label'>
-<b:if cond='data:i != 0'>,</b:if>
 <a class='text-reset hover-text-primary text-decoration-none' expr:href='data:label.url.canonical + &quot;?max-results=10&quot;' rel='tag'>
 <data:label.name/>
 </a>
@@ -1122,7 +1148,6 @@ width: 35%;
 <b:if cond='data:post.labels and data:jwidget.allBylineItems.labels'>
 <div class='item-tag mb-3 fw-light text-secondary'>
 <b:loop index='i' values='data:post.labels where (l =&gt; l.name not contains &quot;#&quot;) take data:skin.vars.maxLabel' var='label'>
-<b:if cond='data:i != 0'>,</b:if>
 <a class='text-reset hover-text-primary text-decoration-none' expr:href='data:label.url.canonical + &quot;?max-results=10&quot;' rel='tag'>
 <data:label.name/>
 </a>
@@ -1742,7 +1767,7 @@ Defer.js('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js','prism-js',1
 });
 }
 /*]]>*/</script>
-<script src='https://cdn.jsdelivr.net/gh/aleck31/blogger-template@v1.0.2/technote/main.js'/>
+<script src='https://cdn.jsdelivr.net/gh/aleck31/blogger-template@v2.0.0/technote/main.js'/>
 
 <!-- Your Style and Script before </body> is here -->
 
