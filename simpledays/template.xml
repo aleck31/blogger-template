@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='1.1.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
+<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='1.1.1' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
 <script>/*<![CDATA[*/function rmurl(e,t){var r=new RegExp(/\?m=0|&m=0|\?m=1|&m=1/g);return r.test(e)&&(e=e.replace(r,""),t&&window.history.replaceState({},document.title,e)),e}const currentUrl=rmurl(location.toString(),!0);null!==localStorage&&"dark"==localStorage.getItem("theme")&&(document.querySelector("html").className="dark-mode");/*]]>*/</script>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
 <meta content='width=device-width, initial-scale=1' name='viewport'/>
@@ -44,6 +44,9 @@ Replaces: fauxcolumn/table layout, fixed 1100px width, designer gradients
 
 <Variable name="snippetLength" description="Excerpt Length" type="string" value="360"/>
 [!] Characters of plain text shown on list pages before "Read more" (tags stripped, entities decoded)
+
+<Variable name="snippetMobilePercent" description="Excerpt Length on Mobile (%)" type="string" value="60"/>
+[!] Mobile excerpt as a percentage of Excerpt Length, applied below 576px; 100 = same as desktop
 
 <Variable name="copyrightText" description="Copyright Text" type="string" value="MYNERS.NET"/>
 [!] Copyright text in footer
@@ -208,7 +211,10 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 .sd-nav li a{display:block;font:$(tabs.font);color:var(--sd-nav);padding:12px 16px;margin:3px 0;border-radius:6px;border-bottom:2px solid transparent}
 .sd-nav li a:hover{color:var(--sd-nav-hover);background-color:var(--sd-tint-1)}
 .sd-nav li.selected a{color:var(--sd-nav-selected);background-color:var(--sd-tint-2)}
-.sd-tools{display:flex;align-items:center;gap:2px;margin-left:auto;padding-right:8px}
+/* Nav row: links flex-grow, toggler pinned right (it sits outside .sd-nav) */
+#nav-wrap .widget{display:flex;align-items:center;min-width:0}
+#nav-wrap .widget-content{flex:1 1 auto;min-width:0}
+.sd-tools{display:flex;align-items:center;gap:2px;flex:0 0 auto;padding-right:8px}
 .sd-tools button{background:none;border:0;color:var(--sd-nav);cursor:pointer;padding:8px;line-height:1;border-radius:6px}
 .sd-tools button:hover{color:var(--sd-nav-hover);background-color:var(--sd-tint-2)}
 .sd-icon{width:1.15em;height:1.15em;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -218,6 +224,11 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 .list .sd-main .sd-card{background:none;border:0;padding:0;box-shadow:none}
 .list .sd-main .date-header{border-bottom:0;padding-bottom:0;margin:1.8rem 2px .6rem}
 .list .sd-main .date-header:first-of-type{margin-top:0}
+/* Search/label/archive heading is its own card: readable on the photo backdrop, and because it is
+   the main column's first card it lines up with the sidebar card without any spacer hack */
+.sd-main .date-header.sd-view-title,.sd-view-title{background-color:var(--sd-content-bg);border:1px solid var(--sd-border);border-radius:8px;box-shadow:var(--sd-shadow);padding:15px 28px;margin:0 0 var(--sd-gap)}
+.sd-view-title .sd-view-term{color:var(--sd-heading);font-weight:600}
+@media (max-width:991px){.sd-view-title{padding:14px 18px;border-radius:6px}}
 .list .date-posts{background-color:var(--sd-content-bg);border:1px solid var(--sd-border);border-radius:8px;padding:24px 28px;box-shadow:var(--sd-shadow);margin-bottom:var(--sd-gap)}
 .list .date-posts .post{margin-bottom:2.2rem}
 .list .date-posts .post:last-child{margin-bottom:0}
@@ -254,11 +265,30 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 .post-body blockquote,.post-body blockquote p{text-indent:0}
 .post-summary p{text-indent:0}
 .post-body img{border-radius:6px}
+/* Legacy content (2007-2012 Blogger editor) hardening: old tables, hardcoded width/height attrs and
+   long unbroken URLs would otherwise overflow the card and give the whole page a horizontal scrollbar */
+/* min-width:0 down the whole chain, else a wide table inside the scroll box still inflates its ancestors */
+.sd-main,.sd-main .sd-card,.sd-main .section,.sd-main .widget,.date-posts,.post,.post-body{min-width:0}
+.post-body{max-width:100%}
+/* Wrapper (added by the inline script) scrolls; the table keeps table layout so rows don't spill out */
+.sd-table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:1.5rem}
+.sd-table-scroll>table{margin-bottom:0}
+.post-body table{max-width:100%}
+/* height:auto collapses iframes (no intrinsic height); the script converts w/h attrs to aspect-ratio */
+.post-body img{max-width:100%!important;height:auto}
+.post-body iframe,.post-body embed,.post-body object,.post-body video{max-width:100%!important}
+.post-body .sd-embed{width:100%;height:auto}
+.post-body [width],.post-body [style*="width"]{max-width:100%}
+.post-body pre{white-space:pre-wrap;overflow-wrap:break-word}
+/* Old posts often centre images with a float+wide margin wrapper that breaks narrow layouts */
+@media (max-width:575px){.post-body [style*="float"]{float:none!important;margin-left:0!important;margin-right:0!important}}
 .jump-link{margin:.7rem 0 0}
 .jump-link a{font-family:var(--sd-font-ui);font-size:14px;font-weight:500}
 .jump-link a:after{content:" \2192"}
-/* Byline under the title on all views; on item pages labels sit right and a rule closes the header block */
+/* List views: "date  labels" as a kicker line above the title. Item pages: byline under the title,
+   labels pushed right, closing rule before the body */
 .post-meta{font-family:var(--sd-font-ui);font-size:13px;color:var(--sd-meta-text);display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:.1rem 0 1.1rem}
+.list .post-meta{gap:10px;margin:0 0 .45rem}
 .single .post-meta{margin:.3rem 0 1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--sd-border)}
 .single .post-meta .post-labels{margin-left:auto}
 /* Timestamps read as data: mono with tabular figures */
@@ -272,7 +302,10 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 /* List views show the lead image full width, then the post text cut off at snippetLength */
 .post-summary .summary-thumb{display:block;margin-bottom:1rem}
 .post-summary .summary-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;display:block}
+/* pre-line keeps the snippet's own line breaks; min-width:0 stops that unbreakable run from
+   inflating the flex column's min-content and pushing the sidebar to the next row */
 .post-summary p{margin:0;white-space:pre-line}
+.sd-main{min-width:0}
 
 /* Pager */
 .blog-pager{display:flex;justify-content:space-between;gap:12px;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--sd-border);font-family:var(--sd-font-ui);font-size:14px}
@@ -393,8 +426,15 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 .sd-attribution .copyright{font-weight:500}
 
 /* Comments */
-.comments{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--sd-border)}
-.comments .comment-block{padding:1rem 0;border-bottom:1px solid var(--sd-border)}
+/* Legacy comment HTML carries stray markup that can push past the card; contain it like post bodies */
+.comments{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--sd-border);min-width:0;max-width:100%;overflow-wrap:break-word}
+.comments .comment-body img{max-width:100%;height:auto}
+.comments .comment-block{padding:1rem 0;border-bottom:1px solid var(--sd-border);min-width:0}
+/* Blogger's embedded comment editor iframe */
+.comment-form{margin-top:1.6rem}
+.comment-form h4{font-family:var(--sd-font-mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sd-meta-text);margin:0 0 .8rem}
+.comment-form #comment-editor{width:100%;border:0;background:transparent}
+.comment-closed{font-family:var(--sd-font-ui);font-size:13px;color:var(--sd-meta-text);margin-top:1.2rem}
 .comments .comment-header{font-family:var(--sd-font-ui);font-size:13px;color:var(--sd-meta-text)}
 
 /* Responsive: the whole point of the refactor */
@@ -407,8 +447,16 @@ hr{border:0;border-top:1px solid var(--sd-border);margin:2rem 0}
 }
 @media (max-width:575px){
   .sd-wrap{padding:0 12px}
-  .sd-nav{padding:0 4px}
-  .sd-nav li a{padding:11px 11px;font-size:14px}
+  /* Nav stays one line: the links scroll horizontally, the toggler is pinned outside the scroller */
+  #nav-wrap .widget,#nav-wrap .widget-content{display:flex;align-items:center;min-width:0}
+  #nav-wrap .widget-content{flex:1 1 auto}
+  .sd-nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;padding:0 4px;
+    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 28px),transparent 100%);
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 28px),transparent 100%)}
+  .sd-nav::-webkit-scrollbar{display:none}
+  .sd-nav li{flex:0 0 auto;scroll-snap-align:start}
+  .sd-nav li a{padding:11px 11px;font-size:14px;white-space:nowrap}
+  #nav-wrap .sd-tools-fixed{padding:0 6px 0 2px}
   .post-title{font-size:1.3rem}
   body{font-size:16px}
 }
@@ -436,7 +484,7 @@ body#layout div.section.footer-section{clear:both;width:auto!important;margin:0 
 body#layout .sd-attribution{display:block;border:0;margin:0;padding:0;opacity:1}
 body#layout .sd-attribution .powered,body#layout .sd-attribution .copyright,body#layout .sd-attribution .totop-slot{display:none}
 /* Badge sits in the 52px top padding reserved above (Median UI pattern), not over the editor toolbar */
-body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;top:10px;right:12px;z-index:20;background-color:#8f5f2f;color:#fff;font-family:Roboto,sans-serif;font-size:13px;padding:8px 18px;border-radius:30px}
+body#layout:before{content:"SimpleDays v1.1.1";display:block;position:absolute;top:10px;right:12px;z-index:20;background-color:#8f5f2f;color:#fff;font-family:Roboto,sans-serif;font-size:13px;padding:8px 18px;border-radius:30px}
 ]]></b:template-skin>
 </b:if>
 
@@ -560,12 +608,13 @@ body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;t
             <b:loop values='data:links' var='link'>
               <li><b:class cond='data:link.isCurrentPage' name='selected'/><a expr:href='data:link.href'><data:link.title/></a></li>
             </b:loop>
-            <li class='sd-tools'>
-              <button aria-label='Toggle dark mode' id='dark-toggler' type='button'>
-                <svg aria-hidden='true' class='sd-icon'><use xlink:href='#i-moon'/></svg>
-              </button>
-            </li>
           </ul>
+        </div>
+        <!-- Outside .sd-nav so it stays put while the links scroll on narrow screens -->
+        <div class='sd-tools sd-tools-fixed'>
+          <button aria-label='Toggle dark mode' id='dark-toggler' type='button'>
+            <svg aria-hidden='true' class='sd-icon'><use xlink:href='#i-moon'/></svg>
+          </button>
         </div>
       </b:includable>
       <b:includable id='content'>
@@ -648,11 +697,11 @@ body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;t
       </b:widget-settings>
       <b:includable id='main'>
         <b:if cond='data:view.search.label'>
-          <h2 class='date-header'>Tag: <b:eval expr='data:view.search.label'/></h2>
+          <h2 class='date-header sd-view-title'>Tag: <span class='sd-view-term'><b:eval expr='data:view.search.label'/></span></h2>
         <b:elseif cond='data:view.search.query'/>
-          <h2 class='date-header'>Search: <b:eval expr='data:view.search.query'/></h2>
+          <h2 class='date-header sd-view-title'>Search: <span class='sd-view-term'><b:eval expr='data:view.search.query'/></span></h2>
         <b:elseif cond='data:view.isArchive'/>
-          <h2 class='date-header'>Archive: <b:eval expr='data:view.archive.rangeMessage'/></h2>
+          <h2 class='date-header sd-view-title'>Archive: <span class='sd-view-term'><b:eval expr='data:view.archive.rangeMessage'/></span></h2>
         </b:if>
         <b:include name='posts'/>
         <!-- On post pages newer/olderPageUrl point at the adjacent posts; static pages get no pager -->
@@ -779,9 +828,18 @@ body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;t
                 <div class='comment-body'><data:comment.body/></div>
               </div>
             </b:loop>
-            <div class='comment-form'>
-              <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>Post a comment</a>
-            </div>
+            <!-- Blogger's own form: addCommentUrl/addCommentOnclick render empty under layouts v3,
+                 so the old anchor was a dead link. These includables embed the real comment editor -->
+            <b:if cond='data:post.allowNewComments'>
+              <b:if cond='data:post.showThreadedComments'>
+                <b:include cond='data:post.embedCommentForm' data='post' name='threadedCommentJs'/>
+                <b:include data='post' name='threadedCommentForm'/>
+              <b:else/>
+                <b:include data='post' name='commentForm'/>
+              </b:if>
+            <b:else/>
+              <p class='comment-closed'><data:post.noNewCommentsText/></p>
+            </b:if>
           </div>
         </b:if>
       </b:includable>
@@ -870,7 +928,9 @@ body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;t
             <b:if cond='data:post.featuredImage'>
               <a class='summary-thumb' expr:href='data:post.url'><img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, &quot;16:9&quot;)' loading='lazy'/></a>
             </b:if>
-            <p><b:eval expr='snippet(data:post.body, {length: data:skin.vars.snippetLength, links: false, linebreaks: true, ellipsis: true})'/></p>
+            <!-- Server renders the desktop-length snippet; the inline script trims it on narrow screens
+                 (the ?m=1 param is stripped, so the server can't tell devices apart) -->
+            <p class='summary-text'><b:eval expr='snippet(data:post.body, {length: data:skin.vars.snippetLength, links: false, linebreaks: true, ellipsis: true})'/></p>
           </div>
         </b:if>
       </b:includable>
@@ -910,11 +970,9 @@ body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;t
               <a expr:href='data:post.url' rel='bookmark'><time expr:datetime='data:post.date.iso8601' itemprop='datePublished'><b:eval expr='data:view.isSingleItem ? (data:post.date format &quot;yyyy-MM-dd HH:mm&quot;) : (data:post.date format &quot;yyyy-MM-dd&quot;)'/></time></a>
             </span>
           </b:if>
-          <b:if cond='data:widgets.Blog.first.allBylineItems.author'>
+          <!-- Author and comment count are item-page detail; the list line stays date + labels -->
+          <b:if cond='data:widgets.Blog.first.allBylineItems.author and data:view.isSingleItem'>
             <span itemprop='author' itemscope='itemscope' itemtype='https://schema.org/Person'><span itemprop='name'><data:post.author.name/></span></span>
-          </b:if>
-          <b:if cond='data:widgets.Blog.first.allBylineItems.comments and !data:view.isSingleItem'>
-            <a expr:href='data:post.commentsUrl'><b:eval expr='data:post.numberOfComments + &quot; &quot; + data:widgets.Blog.first.allBylineItems.comments.label'/></a>
           </b:if>
           <b:if cond='data:post.labels'>
             <span class='post-labels'>
@@ -976,8 +1034,10 @@ body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;t
             </b:if>
             <div class='date-posts'>
               <article class='post' itemscope='itemscope' itemtype='https://schema.org/BlogPosting'>
+                <!-- List views lead with "date  labels" above the title; item pages put the byline under it -->
+                <b:include cond='!data:view.isSingleItem and !data:view.isPage' data='post' name='postByline'/>
                 <b:include data='post' name='postTitle'/>
-                <b:include data='post' name='postByline'/>
+                <b:include cond='data:view.isSingleItem or data:view.isPage' data='post' name='postByline'/>
                 <b:include data='post' name='postBody'/>
                 <b:include cond='!data:view.isSingleItem and !data:view.isPage' data='post' name='postJumpLink'/>
               </article>
@@ -1437,6 +1497,42 @@ body#layout:before{content:"SimpleDays v1.1.0";display:block;position:absolute;t
     function bad(){img.outerHTML='<svg aria-hidden="true" class="sd-icon"><use xlink:href="#i-image"/></svg>';}
     if(img.complete&&img.naturalWidth===0)bad();
     img.addEventListener('error',bad);
+  });
+  // Mobile excerpts: trim the server-rendered snippet to snippetMobilePercent of its length below 576px.
+  // Keeps the full text in a data attr so resizing back to desktop restores it; cuts on a word boundary.
+  (function(){
+    var pct=parseInt('<b:eval expr="data:skin.vars.snippetMobilePercent"/>',10);
+    if(!(pct>0&&pct<100))return;
+    var nodes=document.querySelectorAll('.post-summary .summary-text');
+    if(!nodes.length)return;
+    var mq=matchMedia('(max-width:575px)');
+    function apply(){
+      nodes.forEach(function(p){
+        var full=p.getAttribute('data-full')||p.textContent;
+        if(!p.hasAttribute('data-full'))p.setAttribute('data-full',full);
+        if(!mq.matches){p.textContent=full;return;}
+        var keep=Math.round(full.replace(/…\s*$/,'').length*pct/100);
+        if(keep>=full.length){p.textContent=full;return;}
+        var cut=full.slice(0,keep), sp=cut.lastIndexOf(' ');
+        if(sp>keep*0.6)cut=cut.slice(0,sp);            // avoid mid-word cuts in latin text
+        p.textContent=cut.replace(/[\s　,;:，、；：]+$/,'')+'…';
+      });
+    }
+    apply();
+    mq.addEventListener?mq.addEventListener('change',apply):mq.addListener(apply);
+  })();
+  // Legacy embeds hardcode width/height (e.g. 800x600): keep the ratio so they scale, not flatten
+  document.querySelectorAll('.post-body iframe,.post-body embed,.post-body object,.post-body video').forEach(function(el){
+    var w=parseFloat(el.getAttribute('width')),h=parseFloat(el.getAttribute('height'));
+    if(!(w>0&&h>0))return;
+    el.classList.add('sd-embed');
+    el.style.aspectRatio=w+' / '+h;
+  });
+  // Legacy posts embed wide tables; wrap each in a scroll container so rows can't overflow the page
+  document.querySelectorAll('.post-body table').forEach(function(t){
+    if(t.parentNode.classList.contains('sd-table-scroll'))return;
+    var box=document.createElement('div');box.className='sd-table-scroll';
+    t.parentNode.insertBefore(box,t);box.appendChild(t);
   });
   // Server-side `format` runs in UTC; re-render timestamps from the iso8601 attr, which carries the
   // blog-timezone offset - plain string slicing, no Date() timezone math
