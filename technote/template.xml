@@ -193,6 +193,13 @@ a{color:var(--jt-link-color)}a:hover{color:var(--jt-link-hover)}
 /* Sidebar categories: mono names, quiet counts */
 .categories .list a{font-family:'JetBrains Mono',SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;font-weight:500!important}
 .categories .list .fs-9{color:var(--jt-nav-color)}
+/* Tag cloud is 89 chips tall; cap it and scroll. Scrollbar stays faint until hover */
+.categories .cloud{max-height:11rem;overflow-y:auto;padding-right:6px;margin-bottom:0;scrollbar-width:thin;scrollbar-color:rgba(128,128,128,.18) transparent;transition:scrollbar-color .25s ease;overscroll-behavior:contain}
+.categories .cloud:hover{scrollbar-color:rgba(128,128,128,.4) transparent}
+.categories .cloud::-webkit-scrollbar{width:10px}
+.categories .cloud::-webkit-scrollbar-track{background:transparent}
+.categories .cloud::-webkit-scrollbar-thumb{background-color:rgba(128,128,128,.18);border-radius:5px;border:4px solid transparent;background-clip:content-box}
+.categories .cloud:hover::-webkit-scrollbar-thumb{background-color:rgba(128,128,128,.38);border-width:3px}
 
 /* Desktop Menu Adjustments */
 #navbar .nav-link{color:var(--jt-nav-color);font-weight:500;transition:color 0.3s ease}
