@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:render='true' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='2.1.1' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
+<html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:render='true' b:responsive='true' b:templateUrl='https://github.com/aleck31/blogger-template' b:templateVersion='2.1.2' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'><b:attr name='xmlns' value=''/><b:attr name='xmlns:b' value=''/><b:attr name='xmlns:expr' value=''/><b:attr name='xmlns:data' value=''/><head>
 <b:include data='blog' name='JetAll-head-content'/>
 <b:if cond='!data:view.isLayoutMode'>
 <b:skin><![CDATA[/*
@@ -189,6 +189,7 @@ a{color:var(--jt-link-color)}a:hover{color:var(--jt-link-hover)}
 /* Mermaid diagrams: plain centered figure, not a code box (pre.mermaid must not look like pre) */
 .mermaid{background:transparent!important;border:0;padding:1rem 0;margin:1.5rem 0;text-align:center;color:transparent}
 .mermaid[data-processed]{color:inherit}
+.mermaid[data-processed=failed]{white-space:pre;text-align:left;font-family:'JetBrains Mono',Menlo,monospace;font-size:13px}
 .mermaid svg{max-width:100%;height:auto}
 /* Sidebar categories: mono names, quiet counts */
 .categories .list a{font-family:'JetBrains Mono',SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;font-weight:500!important}
@@ -230,7 +231,7 @@ body#layout:before {
 background-color: #2c3e50;
 border-radius: 30px;
 color: #fff;
-content: "TechNote v2.1.1";
+content: "TechNote v2.1.2";
 display: block;
 font-family: Roboto,sans-serif;
 padding: 10px 20px;
@@ -1766,26 +1767,44 @@ siteUrl = siteUrl.replace(&#39;http://&#39;, &#39;https://&#39;);
 
 function jtCallback(){
 var isDark=document.documentElement.classList.contains('dark-mode');
-// Mermaid diagrams: code blocks starting with a diagram keyword (or language-mermaid) become <div class=mermaid>
-var MM_RE=/^(graph|flowchart|sequenceDiagram|classDiagram|stateDiagram|erDiagram|journey|gantt|pie|mindmap|timeline|gitGraph|quadrantChart)\b/;
-// hand-written .mermaid containers: <pre class=mermaid> is the official form (mermaid docs since v10),
-// <div class=mermaid> is legacy but still valid at runtime; Blogger may store newlines as <br>
+// Blogger may store code newlines as <br>; a <br> already followed by a newline is dropped.
+// In Mermaid source that has real newlines, a remaining <br> is Mermaid's own label line break, kept as text
+function normBr(el,mm){
+  var nl=/\n/.test(el.textContent);
+  el.querySelectorAll('br').forEach(function(br){
+    var n=br.nextSibling;
+    br.replaceWith(n&&n.nodeType===3&&n.data.charAt(0)==='\n'?'':mm&&nl?'<br/>':'\n');
+  });
+}
+// Mermaid diagrams: unmarked code blocks whose first line is a diagram header (or language-mermaid) become <div class=mermaid>
+var MM_RE=/^(graph|flowchart)([ \t]+(TB|TD|BT|RL|LR))?[ \t]*(;|\n|$)|^(sequenceDiagram|classDiagram|stateDiagram|erDiagram|journey|gantt|pie|mindmap|timeline|gitGraph|quadrantChart)\b(?![ \t]*[=.(])/;
+// hand-written containers: <pre class=mermaid> (official form), <div class=mermaid> (legacy), <pre><code class=mermaid>;
+// the last one is lifted to its pre so the pre is the only container and Prism skips it
+document.querySelectorAll('pre code.mermaid').forEach(function(c){c.closest('pre').classList.add('mermaid');c.classList.remove('mermaid');});
 var mmBlocks=[].slice.call(document.querySelectorAll('.mermaid'));
 mmBlocks.forEach(function(d){
-  d.querySelectorAll('br').forEach(function(br){br.replaceWith('\n');});
-  d.setAttribute('data-mm-src',d.textContent.trim());
+  normBr(d,true);
+  var t=d.textContent.trim();
+  d.setAttribute('data-mm-src',t);
+  d.textContent=t; // drops any inner <code> before Prism can claim it
 });
-document.querySelectorAll('pre').forEach(function(el){
-  if(el.classList.contains('mermaid'))return; // already collected above
+document.querySelectorAll('pre:not(.mermaid)').forEach(function(el){
   var code=el.querySelector('code')||el;
-  var t=code.textContent.trim();
-  if(/language-mermaid/.test(code.className+el.className)||MM_RE.test(t)){
+  var cls=code.className+' '+el.className;
+  var explicit=/\b(language|lang)-mermaid\b/.test(cls);
+  if(!explicit&&/\b(language|lang)-/.test(cls)){normBr(el,false);return;} // another language was declared
+  var c=code.cloneNode(true);
+  normBr(c,true);
+  var t=c.textContent.trim();
+  if(explicit||MM_RE.test(t)){
     var d=document.createElement('div');
     d.className='mermaid text-center';
     d.setAttribute('data-mm-src',t);
     d.textContent=t;
     el.replaceWith(d);
     mmBlocks.push(d);
+  }else{
+    normBr(el,false); // before Prism loads: its auto-highlight reads textContent, which drops <br> line breaks
   }
 });
 function mmRender(){
@@ -1818,14 +1837,29 @@ function mmRender(){
 var mmQueue=Promise.resolve();
 function mmQueueRender(){mmQueue=mmQueue.then(mmRender).catch(function(e){console.error(e);});}
 if(mmBlocks.length){
-  Defer.js('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js','mermaid-js',100,mmQueueRender);
+  Defer(function(){
+    var s=document.createElement('script');
+    s.id='mermaid-js';
+    s.src='https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
+    s.onload=mmQueueRender;
+    // CDN unreachable: show the diagram source instead of a blank gap
+    s.onerror=function(){mmBlocks.forEach(function(d){d.setAttribute('data-processed','failed');});};
+    document.head.appendChild(s);
+  },100);
 }
 // Syntax highlighting with Prism.js (theme follows dark mode)
 var lightTheme='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css';
 var darkTheme='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
-Defer.css(isDark?darkTheme:lightTheme,'prism-css',100);
-// Watch for dark mode toggle; other class changes on <html> must not trigger a re-render
 var lastDark=isDark;
+// theme is read when the link is created, so a toggle during the defer delay is not lost
+Defer(function(){
+  var l=document.createElement('link');
+  l.rel='stylesheet';
+  l.id='prism-css';
+  l.href=lastDark?darkTheme:lightTheme;
+  document.head.appendChild(l);
+},100);
+// Watch for dark mode toggle; other class changes on <html> must not trigger a re-render
 var observer=new MutationObserver(function(){
   var dark=document.documentElement.classList.contains('dark-mode');
   if(dark===lastDark)return;
@@ -1847,25 +1881,32 @@ Defer.js('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js','prism-js',1
         el.innerHTML='';
         el.appendChild(code);
       }
+      var cls=code.className+' '+el.className;
+      if(/\b(language|lang)-/.test(cls))return;
+      // bare class hints (class="typescript") from older editors/converters
+      var hint=(cls.match(/\b(typescript|ts|javascript|js|json|bash|shell|sh|yaml|yml|python|py|html|xml|css|sql|go|java|rust|docker|dockerfile|ini|toml|powershell)\b/)||[])[1];
+      var alias={ts:'typescript',js:'javascript',shell:'bash',sh:'bash',yml:'yaml',py:'python',html:'markup',xml:'markup',dockerfile:'docker'};
+      var lang=hint&&(alias[hint]||hint);
       // Blogger editor emits bare pre/code without language-*; Prism skips those, so guess one
-      if(!/language-/.test(code.className+el.className)){
+      if(!lang){
         var t=code.textContent.trim();
-        var lang=/^[\{\[]/.test(t)?'json'
+        lang=/^[\{\[]/.test(t)?'json'
           :/^</.test(t)?'markup'
-          :/^(\$ |#!|sudo |apt|npm |npx |pip|git |curl |wget |cd |docker |systemctl |echo |export )/m.test(t)?'bash'
+          :/^\s*(import .+ from |export (default|const|let|var|function|class|async|type|interface|\{|\*))/m.test(t)?'javascript'
+          :/^(\$ |#!|sudo |apt|npm |npx |pip|git |curl |wget |cd |docker |systemctl |echo |export \w+=)/m.test(t)?'bash'
           :/^\s*(def |import |from .+ import|class .+:|print\()/m.test(t)?'python'
-          :/^\s*(const |let |var |function |=>|import .+ from)/m.test(t)?'javascript'
+          :/^\s*(const |let |var |function |=>)/m.test(t)?'javascript'
           :/^[\w."'-]+\s*:\s+\S/m.test(t)?'yaml'
           :'bash';
-        code.className+=' language-'+lang;
       }
+      code.className+=' language-'+lang;
     });
     Prism.highlightAll();
   });
 });
 }
 /*]]>*/</script>
-<script src='https://cdn.jsdelivr.net/gh/aleck31/blogger-template@v2.1.1/technote/main.js'/>
+<script src='https://cdn.jsdelivr.net/gh/aleck31/blogger-template@v2.1.2/technote/main.js'/>
 
 <!-- Your Style and Script before </body> is here -->
 
