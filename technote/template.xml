@@ -1812,20 +1812,27 @@ function mmRender(){
   };
   mermaid.initialize({startOnLoad:false,securityLevel:'loose',theme:'base',themeVariables:tv,flowchart:{htmlLabels:true,curve:'basis'}});
   mmBlocks.forEach(function(d){d.removeAttribute('data-processed');d.textContent=d.getAttribute('data-mm-src');});
-  mermaid.run({nodes:mmBlocks});
+  return mermaid.run({nodes:mmBlocks});
 }
+// serialize renders: resetting nodes while a previous mermaid.run is still drawing them garbles the output
+var mmQueue=Promise.resolve();
+function mmQueueRender(){mmQueue=mmQueue.then(mmRender).catch(function(e){console.error(e);});}
 if(mmBlocks.length){
-  Defer.js('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js','mermaid-js',100,mmRender);
+  Defer.js('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js','mermaid-js',100,mmQueueRender);
 }
 // Syntax highlighting with Prism.js (theme follows dark mode)
 var lightTheme='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css';
 var darkTheme='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
 Defer.css(isDark?darkTheme:lightTheme,'prism-css',100);
-// Watch for dark mode toggle
+// Watch for dark mode toggle; other class changes on <html> must not trigger a re-render
+var lastDark=isDark;
 var observer=new MutationObserver(function(){
+  var dark=document.documentElement.classList.contains('dark-mode');
+  if(dark===lastDark)return;
+  lastDark=dark;
   var link=document.getElementById('prism-css');
-  if(link)link.href=document.documentElement.classList.contains('dark-mode')?darkTheme:lightTheme;
-  if(mmBlocks.length&&window.mermaid)mmRender();
+  if(link)link.href=dark?darkTheme:lightTheme;
+  if(mmBlocks.length&&window.mermaid)mmQueueRender();
 });
 observer.observe(document.documentElement,{attributes:true,attributeFilter:['class']});
 Defer.js('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js','prism-js',100,function(){
