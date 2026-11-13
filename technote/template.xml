@@ -1831,7 +1831,8 @@ observer.observe(document.documentElement,{attributes:true,attributeFilter:['cla
 Defer.js('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js','prism-js',100,function(){
   Defer.js('https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js','prism-auto',0,function(){
     Prism.plugins.autoloader.languages_path='https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
-    document.querySelectorAll('pre').forEach(function(el){
+    // skip pre.mermaid: Mermaid owns it and may already have replaced its text with an SVG
+    document.querySelectorAll('pre:not(.mermaid)').forEach(function(el){
       var code=el.querySelector('code');
       if(!code){
         code=document.createElement('code');
